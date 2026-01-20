@@ -19,6 +19,10 @@ const FidelityCard = () => {
   const [user, setUser] = useState(null);
   const [birthDate, setBirthDate] = useState("");
   const [loading, setLoading] = useState(true);
+
+  // ✅ URL API dinamico
+  const API_URL = process.env.REACT_APP_API_URL;
+
   const email = localStorage.getItem("userEmail")?.toLowerCase();
 
   const levels = [
@@ -28,26 +32,26 @@ const FidelityCard = () => {
     { name: "Platino", points: 250 }
   ];
 
- useEffect(() => {
-  const fetchUser = async () => {
-    if (!email) return setLoading(false);
-    try {
-      const res = await axios.get(`http://localhost:5000/api/users/${email}`);
-      setUser(res.data);
-      setBirthDate(res.data.dateOfBirth ? new Date(res.data.dateOfBirth).toISOString().split("T")[0] : "");
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-  fetchUser();
-}, [email]);
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (!email) return setLoading(false);
+      try {
+        const res = await axios.get(`${API_URL}/users/${email}`);
+        setUser(res.data);
+        setBirthDate(res.data.dateOfBirth ? new Date(res.data.dateOfBirth).toISOString().split("T")[0] : "");
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUser();
+  }, [email, API_URL]);
 
   const saveBirthDate = async () => {
     try {
-      const res = await axios.put(`http://localhost:5000/api/users/${email}`, { dateOfBirth: birthDate });
-      setUser(prev => ({ ...prev, birthDate: res.data.birthDate }));
+      const res = await axios.put(`${API_URL}/users/${email}`, { dateOfBirth: birthDate });
+      setUser(prev => ({ ...prev, dateOfBirth: res.data.dateOfBirth }));
       alert("Data salvata!");
     } catch (err) {
       console.error(err);
@@ -56,7 +60,7 @@ const FidelityCard = () => {
 
   const dailyBonus = async () => {
     try {
-      const res = await axios.put(`http://localhost:5000/api/users/${email}/daily-login`);
+      const res = await axios.put(`${API_URL}/users/${email}/daily-login`);
       setUser(prev => ({
         ...prev,
         points: res.data.user.points,
@@ -71,7 +75,7 @@ const FidelityCard = () => {
 
   const addQrPoints = async () => {
     try {
-      const res = await axios.put(`http://localhost:5000/api/users/${user._id}/add-points`, { points: 50 });
+      const res = await axios.put(`${API_URL}/users/${user._id}/add-points`, { points: 50 });
       setUser(prev => ({
         ...prev,
         points: res.data.points,

@@ -52,11 +52,12 @@ const FAQSupport = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/support", formData);
+      // ✅ Usa la variabile d'ambiente per Render
+      await axios.post(`${process.env.REACT_APP_API_URL}/support`, formData);
 
       setFormData({ name: "", email: "", message: "" });
 
-      // Mostra popup
+      // Mostra popup di conferma
       setConfirmationMessage("Messaggio inviato! Ti risponderemo al più presto.");
       setTimeout(() => setConfirmationMessage(""), 2500);
 
