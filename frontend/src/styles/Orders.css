@@ -1,0 +1,283 @@
+/* ============================
+   Contenitore generale
+============================ */
+.orders-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #fff8ed 0%, #f4d39b 100%);
+  padding: 50px 20px;
+  font-family: 'Poppins', sans-serif;
+  color: #5a390d;
+}
+
+.orders-container h1 {
+  text-align: center;
+  color: #e67e22;
+  margin-bottom: 40px;
+  font-weight: 800;
+  font-size: 36px;
+}
+
+.page-message {
+  text-align: center;
+  margin-bottom: 25px;
+  padding: 14px 22px;
+  background: #fff3db;
+  border: 1px solid #ffd9a3;
+  border-radius: 16px;
+  color: #d35400;
+  font-weight: 700;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+/* ============================
+   Carrello migliorato
+============================ */
+.cart-container {
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 50px 50px;
+  max-width: 950px;
+  margin: 0 auto 60px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+  transition: all 0.3s ease;
+}
+
+.cart-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.18);
+}
+
+.cart-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cart-container li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* allinea bottone rimuovi con dettagli */
+  background: #fff3db;
+  padding: 25px 30px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  transition: all 0.25s ease;
+}
+
+.cart-container li:hover {
+  background: #ffe6b3;
+}
+
+/* Contenitore per nome e dettagli separati */
+.cart-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1; /* prende tutto lo spazio disponibile */
+}
+
+/* Nome prodotto grande e evidente */
+.cart-item-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: #e67e22;
+}
+
+/* Dettagli: punti, prezzo, disponibilità */
+.cart-item-details {
+  display: flex;
+  gap: 40px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #9a6118;
+}
+
+/* Bottone rimuovi elegante a destra */
+.remove-btn {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+  color: white;
+  border: none;
+  font-size: 20px;
+  font-weight: 700;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-left: 20px; /* spazio dal contenuto */
+  flex-shrink: 0;    /* non si riduce con il flex */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.remove-btn:hover {
+  background: linear-gradient(135deg, #d98100, #d35400);
+  transform: scale(1.15);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+/* Bottone conferma ordine migliorato */
+.confirm-btn {
+  width: 100%;
+  margin-top: 35px;
+  padding: 24px;
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+  border: none;
+  border-radius: 24px;
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.confirm-btn:hover {
+  background: linear-gradient(135deg, #d98100, #d35400);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+}
+
+/* ============================
+   Premi riscattati
+============================ */
+.rewards-apply {
+  text-align: center;
+  margin-top: 25px;
+  padding: 22px 15px;
+  background: #fff8ed;
+  border-radius: 22px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+.rewards-apply p {
+  font-size: 22px;
+  font-weight: 600;
+  color: #e67e22;
+  margin-bottom: 30px;
+}
+
+.rewards-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px;
+}
+
+.reward-btn {
+  padding: 16px 28px;
+  border-radius: 18px;
+  border: 1px solid #f39c12;
+  background: #fff5e1;
+  color: #d35400;
+  font-weight: 700;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.reward-btn:hover {
+  background: #f39c12;
+  color: white;
+  transform: scale(1.05);
+}
+
+.selected-reward {
+  background: #d35400;
+  color: white;
+  border-color: #d35400;
+}
+
+/* ============================
+   Bottoni finali centrati
+============================ */
+.orders-buttons-wrapper {
+  margin-top: auto;
+  padding-top: 50px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.orders-buttons-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: nowrap;
+}
+
+.final-btn {
+  width: 220px;
+  height: 70px;
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.final-btn:hover {
+  background: linear-gradient(135deg, #d98100, #d35400);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+.final-btn:active {
+  transform: translateY(2px) scale(0.98);
+}
+
+/* ============================
+   Responsive
+============================ */
+@media (max-width: 700px) {
+  .cart-container li {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 20px;
+  }
+
+  .cart-item-details {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    font-size: 18px;
+  }
+
+  .cart-item-name {
+    font-size: 22px;
+  }
+
+  .confirm-btn {
+    font-size: 20px;
+    padding: 20px;
+  }
+
+  .remove-btn {
+    width: 40px;
+    height: 40px;
+    margin-left: 0;
+  }
+
+  .orders-buttons-container {
+    flex-direction: column;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .final-btn {
+    width: 90%;
+    height: 60px;
+    font-size: 18px;
+  }
+}

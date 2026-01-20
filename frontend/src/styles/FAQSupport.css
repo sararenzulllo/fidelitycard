@@ -1,0 +1,139 @@
+/* =========================
+   Contenitore principale
+========================= */
+.faq-container {
+  min-height: 100vh;
+  padding: 50px 20px;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ffe5d9 0%, #f76f5a 100%);
+  color: #8b1f1f; /* testo principale rosso scuro per contrasto */
+}
+
+/* Titoli */
+.faq-container h2, .faq-container h3 {
+  text-align: center;
+  color: #d94a4a; /* rosso chiaro coerente */
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
+.faq-container h3 {
+  margin-top: 40px;
+}
+
+/* FAQ Accordion */
+.faq-item {
+  background-color: #ffd6a5; /* arancione leggero per le card */
+  border-radius: 15px;
+  margin-bottom: 15px;
+  padding: 15px 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.faq-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #8b1f1f;
+}
+
+.faq-question span {
+  font-size: 1.2rem;
+  font-weight: 700;
+  transition: transform 0.3s;
+}
+
+.faq-question.open span {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  margin-top: 10px;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #5a1a1a; /* rosso scuro più leggero per testo */
+}
+
+/* Form Supporto */
+.faq-form {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.faq-form input,
+.faq-form textarea {
+  padding: 12px 15px;
+  border-radius: 12px;
+  border: 2px solid #d94a4a; /* rosso chiaro bordo */
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.faq-form input:focus,
+.faq-form textarea:focus {
+  border-color: #f36a6a; /* rosso leggermente più chiaro */
+}
+
+.faq-form button {
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: none;
+  background-color: #d94a4a; /* rosso chiaro pulsante */
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.faq-form button:hover {
+  background-color: #f36a6a;
+  transform: scale(1.05);
+}
+
+/* Messaggio inviato */
+.faq-submitted {
+  text-align: center;
+  font-size: 1.3rem;
+  padding: 20px;
+  background-color: #f36a6a; /* rosso leggero per messaggio successo */
+  color: #fff;
+  border-radius: 15px;
+  max-width: 500px;
+  margin: 40px auto;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+.faq-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #4caf50;
+  color: white;
+  padding: 20px 30px;
+  border-radius: 14px;
+  font-size: 20px;
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  z-index: 9999;
+  animation: fadeFaq 2.3s ease forwards;
+}
+
+@keyframes fadeFaq {
+  0% { opacity: 0; transform: translate(-50%, -60%); }
+  10% { opacity: 1; transform: translate(-50%, -50%); }
+  90% { opacity: 1; transform: translate(-50%, -50%); }
+  100% { opacity: 0; transform: translate(-50%, -60%); }
+}

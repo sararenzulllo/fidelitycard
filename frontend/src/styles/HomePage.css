@@ -1,0 +1,164 @@
+/* Container principale */
+.homepage-container {
+  display: flex;
+  height: 100vh;
+  font-family: 'Arial', sans-serif;
+  background-color: #d79a39;
+  color: #2c3e50;
+}
+
+/* Sidebar laterale */
+.sidebar {
+  width: 250px;
+  background-color: #800000; /* bordeaux scuro */
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.sidebar-title {
+  text-align: center;
+  color: #ffcccb; /* rosa chiaro per titolo */
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  transition: color 0.3s;
+}
+.sidebar-title:hover {
+  color: #ff7f50; /* arancione vivo al passaggio */
+}
+
+.menu-section {
+  margin-bottom: 1.5rem;
+}
+
+.menu-section h3 {
+  color: #ffcccb;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: color 0.3s;
+}
+.menu-section h3:hover {
+  color: #ffa500;
+}
+
+.menu-section button {
+  width: 100%;
+  padding: 0.8rem;
+  background: #e74c3c; /* rosso vivo */
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 0.3rem;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.3s, color 0.3s;
+}
+.menu-section button:hover {
+  transform: translateX(5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  background-color: #c0392b;
+  color: #ffcccb;
+}
+
+/* Logout */
+.btn-logout {
+  padding: 0.7rem;
+  margin-top: auto;
+  background-color: #b22222; /* rosso scuro */
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #fff;
+  transition: transform 0.2s, background 0.3s;
+}
+.btn-logout:hover {
+  transform: scale(1.05);
+  background-color: #ff4500;
+}
+
+/* Contenuto centrale */
+.main-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem;
+}
+
+/* FidelityCard centrale */
+.fidelity-description {
+  width: 100%;
+  max-width: 850px;
+  background: linear-gradient(135deg, #ff6600, #ff9933); /* arancione forte gradiente */
+  border-radius: 20px;
+  padding: 2.5rem 3rem;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.fidelity-description:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+/* Titoli e testi interattivi */
+.fidelity-title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #fff;
+  transition: color 0.3s, transform 0.3s;
+}
+.fidelity-title:hover {
+  color: #ffe066;
+  transform: scale(1.05);
+}
+
+.fidelity-intro {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #fff8e1;
+  transition: color 0.3s;
+}
+.fidelity-intro:hover {
+  color: #fff3b0;
+}
+
+/* Griglia funzionalità */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+}
+
+.feature-card {
+  background-color: #ff9933;
+  color: white;
+  padding: 1rem;
+  border-radius: 15px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+  cursor: pointer;
+}
+.feature-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  background-color: #ff6600;
+}
+
+.feature-icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+}
+.feature-title {
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+.feature-desc {
+  font-size: 0.95rem;
+}
