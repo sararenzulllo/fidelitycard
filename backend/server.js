@@ -2,7 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import path from "path"; // <-- serve per React build
+import path from "path";
+import { fileURLToPath } from "url";
 
 import productsRouter from "./routes/products.js"; 
 import supportRoutes from "./routes/supportRoutes.js";
@@ -12,6 +13,7 @@ import prizesRouter from "./routes/prizes.js";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import reviewsRoutes from "./routes/reviews.js";
+import User from "./models/User.js"; // modello User
 
 dotenv.config();
 
@@ -41,8 +43,6 @@ mongoose.connect(process.env.MONGO_URI, {
 .catch((err) => console.error("Errore connessione MongoDB:", err));
 
 // --- User routes speciali ---
-import User from "./models/User.js"; // Assicurati di importare il modello User
-
 app.put("/api/users/:id/add-points", async (req, res) => {
   const { id } = req.params;
   const { points } = req.body;
@@ -75,8 +75,11 @@ app.put("/api/users/:id/qr-bonus", async (req, res) => {
   }
 });
 
-// --- SERVE REACT BUILD ---
-const __dirname = path.resolve();
+// --- Serve React build ---
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve la build di React
 app.use(express.static(path.join(__dirname, "../frontend/build")));
 
 app.get("*", (req, res) => {
