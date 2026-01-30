@@ -1,0 +1,111 @@
+
+.orderslist-container {
+  background: linear-gradient(180deg, hsl(84, 100%, 79%) 0%, #7dce4e 100%);
+  min-height: 100vh;
+  padding: 40px 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.title {
+  text-align: center;
+  color: #3cac1d;
+  font-size: 36px;
+  margin-bottom: 40px;
+  font-weight: 700;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+}
+
+.empty {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 30px;
+  color: #555;
+  font-style: italic;
+}
+
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+  justify-items: center; 
+}
+
+.order-card {
+  background: #ffffff;
+  padding: 25px 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center; 
+}
+
+.order-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+}
+
+.order-title {
+  color: #42b614;
+  margin-bottom: 12px;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.order-products {
+  margin-top: 15px;
+  padding-top: 12px;
+  border-top: 2px solid #ffd87a;
+}
+
+.prod-item {
+  margin: 6px 0;
+  color: #555;
+  font-size: 16px;
+}
+
+.orders-buttons-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.orders-buttons-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.orders-buttons-container button {
+  padding: 14px 26px;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 12px;
+  background-color: #799967; 
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 220px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.orders-buttons-container button:hover {
+  background-color: #0aa60d; 
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 700px) {
+  .orders-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .orders-buttons-container button {
+    width: 90%;
+    font-size: 16px;
+  }
+}

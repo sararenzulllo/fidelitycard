@@ -1,0 +1,217 @@
+
+.orders-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+background: linear-gradient(180deg, hsl(84, 100%, 79%) 0%, #7dce4e 100%);
+  padding: 40px 20px;
+  font-family: 'Poppins', sans-serif;
+  color: #1c7109;
+  transition: background 0.5s ease;
+}
+
+.orders-container h1 {
+  text-align: center;
+  font-size: 36px;
+  font-weight: 800;
+  color: #2c7a10;
+  margin-bottom: 40px;
+}
+
+.page-message {
+  text-align: center;
+  padding: 14px 22px;
+  margin-bottom: 25px;
+  background: #e0f4d9;
+  border-radius: 16px;
+  border: 1px solid #b2e197;
+  color: #81d01b;
+  font-weight: 700;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.cart-container {
+  background: #a4db71cc; 
+  border-radius: 28px;
+  padding: 50px;
+  max-width: 950px;
+  margin: 0 auto 60px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+  transition: all 0.3s ease;
+}
+
+.cart-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.18);
+}
+
+.cart-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cart-container li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f0fef0;
+  padding: 25px 30px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  transition: all 0.25s ease;
+}
+
+.cart-container li:hover {
+  background: #e0f9e0;
+}
+
+.cart-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.cart-item-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: #29870c;
+}
+
+.cart-item-details {
+  display: flex;
+  gap: 40px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #2a770e;
+}
+
+.remove-btn {
+  background: linear-gradient(135deg, #7fcf7f, #3fa520);
+  color: white;
+  border: none;
+  font-size: 20px;
+  font-weight: 700;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-left: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.remove-btn:hover {
+  background: linear-gradient(135deg, #3fa520, #2b600d);
+  transform: scale(1.15);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+.confirm-btn {
+  width: 100%;
+  margin-top: 35px;
+  padding: 24px;
+  background: linear-gradient(135deg, #69a531, #277d0d);
+  border: none;
+  border-radius: 24px;
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.confirm-btn:hover {
+  background: linear-gradient(135deg, #3fa520, #2b600d);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+}
+
+.rewards-apply {
+  text-align: center;
+  margin: 25px auto;       /* centra la card orizzontalmente */
+  padding: 20px 25px;      /* padding interno compatto */
+  max-width: 700px;        /* larghezza massima ridotta */
+  width: 90%;              /* larghezza relativa allo schermo */
+  background: #f0fff0;
+  border-radius: 22px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+
+.rewards-apply p {
+  font-size: 22px;
+  font-weight: 600;
+  color: #3fa520;
+  margin-bottom: 30px;
+}
+
+.rewards-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px;
+}
+
+.reward-btn {
+  padding: 16px 28px;
+  border-radius: 18px;
+  border: 1px solid #1f701f;
+  background: #ffffff;
+  color: #3fa520;
+  font-weight: 700;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.reward-btn:hover {
+  background: #3fa520;
+  color: white;
+  transform: scale(1.05);
+}
+
+.selected-reward {
+  background: #2b600d;
+  color: white;
+  border-color: #2b600d;
+}
+
+.orders-buttons-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.orders-buttons-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.orders-buttons-container button {
+  padding: 16px 28px;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #58af25, #298507); 
+  color: white;
+  border: none;
+  cursor: pointer;
+  min-width: 220px;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.orders-buttons-container button:hover {
+  background: linear-gradient(135deg, #2b7d0d, #1f5c09); 
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+}

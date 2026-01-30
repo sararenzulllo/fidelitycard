@@ -1,0 +1,145 @@
+
+.welcome-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #ff4b42 0%, #761001 100%);
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.welcome-content {
+  display: flex;
+  gap: 50px;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.welcome-text {
+  flex: 1;
+  min-width: 300px;
+}
+
+.welcome-title {
+  font-family: 'Cinzel', serif; 
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #fff;
+  letter-spacing: 2px;
+  line-height: 1.2;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+  border-bottom: 3px solid #ffe0d1; 
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* Descrizione in corsivo */
+.welcome-description {
+  font-size: 18px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+  color: #fffddf;
+  font-weight: 400;
+  font-style: italic; 
+}
+
+
+.welcome-description strong {
+  color: #ffe0d1;
+  font-weight: 600;
+}
+
+.fidelity-card {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fidelity-image {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+  transition: transform 0.3s;
+}
+
+.fidelity-image:hover {
+  transform: scale(1.05);
+}
+
+.welcome-buttons {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.welcome-buttons button {
+  padding: 15px 35px;
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-login {
+  background: linear-gradient(135deg, #ce2b2b, #c71313);
+  color: #fff;
+}
+
+.btn-login:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.btn-register {
+  background: linear-gradient(135deg, #fff 0%, #ffdede 100%);
+  color: #ce3b24;
+}
+
+.btn-register:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+@media (max-width: 900px) {
+  .welcome-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
+
+  .fidelity-image {
+    max-width: 80%;
+  }
+}
+
+@media (max-width: 600px) {
+  .welcome-title {
+    font-size: 36px;
+  }
+
+  .welcome-description {
+    font-size: 16px;
+  }
+
+  .welcome-buttons button {
+    width: 90%;
+    font-size: 16px;
+    padding: 12px 0;
+  }
+}
