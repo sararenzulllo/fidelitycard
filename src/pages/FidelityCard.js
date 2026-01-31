@@ -187,7 +187,7 @@ const FidelityCard = () => {
         <div className="qr-section">
           <h3>📱 Mostra questo QR al negozio</h3>
           <p className="qr-info-text">
-            Mostrando questo QR code all'operatore, quest'ultimo riceverà la tua email e tramite email arriverà la conferma che <strong>vengono aggiunti 50 punti</strong> al tuo account.
+           Mostrando questo QR code all’operatore, la tua email verrà registrata e riceverai una conferma via email dell’accredito di 50 punti sul tuo account.
           </p>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "12px" }}>
             <QRCodeSVG value={user.email} size={220} bgColor="#ffffff" fgColor="#0d47a1" />

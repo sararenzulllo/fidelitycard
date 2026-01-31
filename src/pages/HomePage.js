@@ -59,9 +59,7 @@ const HomePage = () => {
         <div className="fidelity-description">
           <h1 className="fidelity-title">🏠 FidelityCard360</h1>
           <p className="fidelity-intro">
-            Benvenuto a casa tua! Con la <strong>FidelityCard360</strong> accumuli punti, scopri offerte personalizzate
-            e riscatta premi esclusivi. Tutto quello che ti serve per vivere un’esperienza di shopping più smart,
-            comodamente da un’unica dashboard.
+            Benvenuto a casa tua! Con FidelityCard360 ogni acquisto ti premia: accumula punti, scopri offerte personalizzate e riscatta premi unici. Tutto in un’unica dashboard per uno shopping intelligente, facile e gratificante.
           </p>
 
           <div className="features-grid">
