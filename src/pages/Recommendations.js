@@ -18,9 +18,7 @@ const Recommendations = () => {
     if (!email) return;
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`${API_URL}/api/users`, {
-  params: { email }
-});
+        const res = await axios.get(`${API_URL}/api/users`, { params: { email } });
         setUser(res.data);
       } catch (err) {
         console.error(err);
@@ -53,7 +51,7 @@ const Recommendations = () => {
             id: `purchase-${i}`,
             title: `🎉 Offerta speciale per te: -20% su ${p.name}`,
             product: p,
-            discountedPrice: (p.price * 0.8).toFixed(2),
+            discountedPrice: Number((p.price * 0.8).toFixed(2)),
             type: "acquisto",
           }));
 
@@ -66,7 +64,7 @@ const Recommendations = () => {
           id: `new-${i}`,
           title: `🆕 Novità! Scopri ${p.name}`,
           product: p,
-          discountedPrice: p.price.toFixed(2),
+          discountedPrice: Number(p.price.toFixed(2)),
           type: "nuovo",
         }));
         personalizedOffers = personalizedOffers.concat(newProductOffers);
@@ -76,7 +74,7 @@ const Recommendations = () => {
           id: `sale-${i}`,
           title: `🔥 Saldi stagionali: -15% su ${p.name}`,
           product: p,
-          discountedPrice: (p.price * 0.85).toFixed(2),
+          discountedPrice: Number((p.price * 0.85).toFixed(2)),
           type: "sconto",
         }));
         personalizedOffers = personalizedOffers.concat(seasonalOffers);
@@ -92,7 +90,7 @@ const Recommendations = () => {
         );
 
         setAlerts([
-          { id: 1, message: `Hai ${user.points || 0} punti disponibili da riscattare!` },
+          { id: 1, message: `Hai ${Number(user.points).toFixed(2)} punti disponibili da riscattare!` },
           { id: 2, message: "Non hai ancora riscattato il tuo premio mensile!" },
         ]);
       } catch (err) {
@@ -109,7 +107,7 @@ const Recommendations = () => {
   // Funzione per aggiungere al carrello con popup
   const addToCartOffer = (product, discountedPrice) => {
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    const newCartItem = { ...product, price: discountedPrice, quantity: 1 };
+    const newCartItem = { ...product, price: Number(discountedPrice).toFixed(2), quantity: 1 };
     const newCart = [...storedCart, newCartItem];
     localStorage.setItem("cart", JSON.stringify(newCart));
 
@@ -153,23 +151,14 @@ const Recommendations = () => {
                     <div key={offer.id} className="offer-card">
                       <h3>{offer.title}</h3>
                       <p>Prodotto: {offer.product.name}</p>
-                      <p>Prezzo originale: €{offer.product.price}</p>
-                      <p>Prezzo scontato: €{offer.discountedPrice}</p>
+                      <p>Prezzo originale: €{Number(offer.product.price).toFixed(2)}</p>
+                      <p>Prezzo scontato: €{Number(offer.discountedPrice).toFixed(2)}</p>
 
-                      <button
-                        onClick={() => navigate("/catalogo-prodotti")}
-                      >
+                      <button onClick={() => navigate("/catalogo-prodotti")}>
                         🔍 Dettagli
                       </button>
 
-                      <button
-                        onClick={() =>
-                          addToCartOffer(
-                            offer.product,
-                            offer.discountedPrice
-                          )
-                        }
-                      >
+                      <button onClick={() => addToCartOffer(offer.product, offer.discountedPrice)}>
                         🛒 Aggiungi al carrello
                       </button>
                     </div>

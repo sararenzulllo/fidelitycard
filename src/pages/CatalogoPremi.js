@@ -39,7 +39,7 @@ const CatalogoPremi = () => {
     try {
       const res = await axios.post(`${process.env.REACT_APP_API_URL || ""}/api/prizes`, {
         name: newPrizeName,
-        pointsNeeded: Number(newPrizePoints),
+        pointsNeeded: Number(newPrizePoints.toFixed(2)),
         validUntil: newPrizeValidUntil
       });
       setCatalogo(prev => [...prev, res.data]);
@@ -53,19 +53,17 @@ const CatalogoPremi = () => {
     }
   };
 
- const deletePrize = async (id) => {
-  if (!window.confirm("Sei sicuro di voler eliminare questo premio?")) return;
-  try {
-    // Passa l'id come query string
-    await axios.delete(`${process.env.REACT_APP_API_URL || ""}/api/prizes?id=${id}`);
-    setCatalogo(prev => prev.filter(p => p._id !== id));
-    alert("Premio eliminato con successo!");
-  } catch (err) {
-    console.error(err);
-    alert(err.response?.data?.message || "Errore eliminazione premio");
-  }
-};
-
+  const deletePrize = async (id) => {
+    if (!window.confirm("Sei sicuro di voler eliminare questo premio?")) return;
+    try {
+      await axios.delete(`${process.env.REACT_APP_API_URL || ""}/api/prizes?id=${id}`);
+      setCatalogo(prev => prev.filter(p => p._id !== id));
+      alert("Premio eliminato con successo!");
+    } catch (err) {
+      console.error(err);
+      alert(err.response?.data?.message || "Errore eliminazione premio");
+    }
+  };
 
   if (loading) return <p style={{ textAlign: "center" }}>⏳ Caricamento catalogo...</p>;
   if (!email) return <p style={{ textAlign: "center", color: "red" }}>❌ Utente non loggato</p>;
@@ -76,7 +74,9 @@ const CatalogoPremi = () => {
   return (
     <div className="catalogo-page">
       <h1 className="catalogo-title">🎁 Catalogo Premi</h1>
-      <p className="catalogo-punti">Punti disponibili: {user.points}</p>
+      <p className="catalogo-punti">
+        Punti disponibili: {Number(user.points).toFixed(2)}
+      </p>
 
       <div className="add-prize-form">
         <input
@@ -110,7 +110,7 @@ const CatalogoPremi = () => {
           return (
             <div key={premio._id} className="catalogo-card">
               <h3>{premio.name}</h3>
-              <p>🎯 {premio.pointsNeeded} punti</p>
+              <p>🎯 {Number(premio.pointsNeeded).toFixed(2)} punti</p>
               <p className="validity">Valido fino a: {new Date(premio.validUntil).toLocaleDateString()}</p>
               <span className={`badge ${badgeClass}`}>
                 {ottenuto ? "Ottenuto" : raggiungibile ? "Disponibile" : "Bloccato"}
