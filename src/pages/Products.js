@@ -8,7 +8,7 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
-  const [quantities, setQuantities] = useState({});
+  const [quantities, setQuantities] = useState({}); // tiene traccia delle quantità selezionate
 
   const API_URL = process.env.REACT_APP_API_URL || "";
 
@@ -20,8 +20,9 @@ const Products = () => {
 
         // inizializza quantità a 1 per ogni prodotto
         const initialQuantities = {};
-        res.data.forEach((p) => (initialQuantities[p._id] = 1));
+        res.data.forEach(p => (initialQuantities[p._id] = 1));
         setQuantities(initialQuantities);
+
       } catch (err) {
         console.error(err);
         setMessage("❌ Impossibile caricare i prodotti");
@@ -34,9 +35,9 @@ const Products = () => {
   }, [API_URL]);
 
   const updateQuantity = (id, delta) => {
-    setQuantities((prev) => ({
+    setQuantities(prev => ({
       ...prev,
-      [id]: Math.max(1, (prev[id] || 1) + delta),
+      [id]: Math.max(1, (prev[id] || 1) + delta)
     }));
   };
 
@@ -44,7 +45,7 @@ const Products = () => {
     if (!window.confirm("Sei sicuro di voler eliminare questo prodotto?")) return;
     try {
       await axios.delete(`${API_URL}/api/products/${id}`);
-      setProducts(products.filter((p) => p._id !== id));
+      setProducts(products.filter(p => p._id !== id));
       setMessage("✅ Prodotto eliminato!");
       setTimeout(() => setMessage(""), 3000);
     } catch (err) {
@@ -80,10 +81,10 @@ const Products = () => {
         {products.map((p, i) => (
           <div key={p._id} className={`product-row ${i % 2 === 0 ? "even" : "odd"}`}>
             <div className="product-image">
-              <img
-                src={p.image ? `/images/${p.image}` : "/images/placeholder.png"}
-                alt={p.name}
-              />
+              {p.image 
+                ? <img src={`/images/${p.image}`} alt={p.name} />  // immagini dalla cartella public/images
+                : <span>📷 Nessuna immagine</span>
+              }
             </div>
             <div className="product-info">
               <h2>{p.name}</h2>
