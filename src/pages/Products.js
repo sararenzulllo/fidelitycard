@@ -10,29 +10,28 @@ const Products = () => {
   const [message, setMessage] = useState("");
   const [quantities, setQuantities] = useState({});
 
-  // Determina se siamo in locale
   const isLocal = !process.env.NODE_ENV || process.env.NODE_ENV === "development";
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await axios.get("/api/products");
-        setProducts(res.data);
+  // Funzione per caricare prodotti
+  const fetchProducts = async () => {
+    try {
+      const res = await axios.get("/api/products");
+      setProducts(res.data);
 
-        const initialQuantities = {};
-        res.data.forEach(p => (initialQuantities[p._id] = 1));
-        setQuantities(initialQuantities);
+      const initialQuantities = {};
+      res.data.forEach(p => (initialQuantities[p._id] = 1));
+      setQuantities(initialQuantities);
 
-      } catch (err) {
-        console.error(err);
-        setMessage("❌ Impossibile caricare i prodotti");
-        setTimeout(() => setMessage(""), 3000);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchProducts();
-  }, []);
+    } catch (err) {
+      console.error("Errore caricamento prodotti:", err);
+      setMessage("❌ Impossibile caricare i prodotti");
+      setTimeout(() => setMessage(""), 3000);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => { fetchProducts(); }, []);
 
   const updateQuantity = (id, delta) => {
     setQuantities(prev => ({
@@ -44,12 +43,12 @@ const Products = () => {
   const deleteProduct = async (id) => {
     if (!window.confirm("Sei sicuro di voler eliminare questo prodotto?")) return;
     try {
-      await axios.delete(`/api/products/${id}`);
-      setProducts(products.filter(p => p._id !== id));
+      await axios.delete(`/api/products?id=${id}`);
       setMessage("✅ Prodotto eliminato!");
       setTimeout(() => setMessage(""), 3000);
+      fetchProducts(); // aggiorna lista prodotti
     } catch (err) {
-      console.error(err);
+      console.error("Errore eliminazione prodotto:", err);
       setMessage("❌ Errore eliminazione prodotto");
       setTimeout(() => setMessage(""), 3000);
     }
@@ -70,7 +69,6 @@ const Products = () => {
   return (
     <div className="products-container">
       <h1>📦 Catalogo Prodotti</h1>
-
       <button className="add-btn" onClick={() => navigate("/aggiungi-prodotto")}>
         ➕ Aggiungi prodotto
       </button>
