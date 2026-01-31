@@ -8,7 +8,7 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
-  const [quantities, setQuantities] = useState({}); // tiene traccia delle quantità selezionate
+  const [quantities, setQuantities] = useState({}); 
 
   const API_URL = process.env.REACT_APP_API_URL || "";
 
@@ -18,7 +18,6 @@ const Products = () => {
         const res = await axios.get(`${API_URL}/api/products`);
         setProducts(res.data);
 
-        // inizializza quantità a 1 per ogni prodotto
         const initialQuantities = {};
         res.data.forEach(p => (initialQuantities[p._id] = 1));
         setQuantities(initialQuantities);
@@ -82,7 +81,7 @@ const Products = () => {
           <div key={p._id} className={`product-row ${i % 2 === 0 ? "even" : "odd"}`}>
             <div className="product-image">
               {p.image 
-                ? <img src={`/images/${p.image}`} alt={p.name} />  // immagini dalla cartella public/images
+                ? <img src={require(`../assets/${p.image}`)} alt={p.name} /> 
                 : <span>📷 Nessuna immagine</span>
               }
             </div>
