@@ -53,17 +53,19 @@ const CatalogoPremi = () => {
     }
   };
 
-  const deletePrize = async (id) => {
-    if (!window.confirm("Sei sicuro di voler eliminare questo premio?")) return;
-    try {
-      await axios.delete(`${process.env.REACT_APP_API_URL || ""}/api/prizes/${id}`);
-      setCatalogo(prev => prev.filter(p => p._id !== id));
-      alert("Premio eliminato con successo!");
-    } catch (err) {
-      console.error(err);
-      alert(err.response?.data?.message || "Errore eliminazione premio");
-    }
-  };
+ const deletePrize = async (id) => {
+  if (!window.confirm("Sei sicuro di voler eliminare questo premio?")) return;
+  try {
+    // Passa l'id come query string
+    await axios.delete(`${process.env.REACT_APP_API_URL || ""}/api/prizes?id=${id}`);
+    setCatalogo(prev => prev.filter(p => p._id !== id));
+    alert("Premio eliminato con successo!");
+  } catch (err) {
+    console.error(err);
+    alert(err.response?.data?.message || "Errore eliminazione premio");
+  }
+};
+
 
   if (loading) return <p style={{ textAlign: "center" }}>⏳ Caricamento catalogo...</p>;
   if (!email) return <p style={{ textAlign: "center", color: "red" }}>❌ Utente non loggato</p>;

@@ -14,21 +14,19 @@ const Orders = () => {
   const email = localStorage.getItem("userEmail")?.toLowerCase();
   const API_URL = process.env.REACT_APP_API_URL || "";
 
+  // =========================
+  // FETCH UTENTE + CARRELLO
+  // =========================
   useEffect(() => {
     const fetchUser = async () => {
-      if (!email) {
-        setLoading(false);
-        return;
-      }
+      if (!email) { setLoading(false); return; }
       try {
         const res = await axios.get(`${API_URL}/api/users?email=${email}`);
-
         setUser(res.data);
         const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
         setCart(storedCart);
       } catch (err) {
         console.error(err);
-        setUser(null);
       } finally {
         setLoading(false);
       }
@@ -36,25 +34,28 @@ const Orders = () => {
     fetchUser();
   }, [email, API_URL]);
 
+  // =========================
+  // RIMUOVI DAL CARRELLO
+  // =========================
   const removeFromCart = (index) => {
     const newCart = cart.filter((_, i) => i !== index);
     setCart(newCart);
     localStorage.setItem("cart", JSON.stringify(newCart));
   };
 
+  // =========================
+  // APPLICA PREMIO
+  // =========================
   const applyReward = (reward) => {
-    if (
-      reward.type === "discount" &&
-      user.usedDiscounts?.map(r => r.trim().toLowerCase()).includes(reward.name.trim().toLowerCase())
-    ) {
-      setMessage("❌ Sconto già usato!");
+    if (appliedReward?.name === reward.name) {
+      setAppliedReward(null);
+      setMessage("❌ Premio rimosso");
       setTimeout(() => setMessage(""), 3000);
       return;
     }
 
-    if (appliedReward?.name === reward.name) {
-      setAppliedReward(null);
-      setMessage("❌ Premio rimosso");
+    if (reward.type === "discount" && user.rewards?.includes(reward.name)) {
+      setMessage("❌ Sconto già usato!");
       setTimeout(() => setMessage(""), 3000);
       return;
     }
@@ -64,43 +65,56 @@ const Orders = () => {
     setTimeout(() => setMessage(""), 3000);
   };
 
-  const confirmOrder = async () => {
-    if (!user) return setMessage("❌ Utente non loggato");
-    if (!cart.length) return setMessage("❌ Carrello vuoto");
+  // =========================
+  // CALCOLI TOTALI
+  // =========================
+  const totalPoints = cart.reduce((acc, p) => acc + Number(p.points || 0), 0);
+  const totalPrice = cart.reduce((acc, p) => acc + Number(p.price || 0), 0);
+  const finalPrice = appliedReward?.type === "discount"
+    ? totalPrice * (1 - appliedReward.value / 100)
+    : totalPrice;
 
-    const totalPoints = cart.reduce((acc, p) => acc + Number(p.points || 0), 0);
-    const totalPrice = cart.reduce((acc, p) => acc + Number(p.price || 0), 0);
+  // =========================
+  // CONFERMA ORDINE
+  // =========================
+  const confirmOrder = async () => {
+    if (!user || !cart.length) return;
 
     try {
-      await axios.put(`${API_URL}/api/users?email=${email}`, {
-   order: {
-     points: totalPoints,
-     products: cart,
-     appliedReward: appliedReward || null
-   } });
+      // 1️⃣ Aggiorna l’utente: punti guadagnati + premio usato
+      const resUser = await axios.put(`${API_URL}/api/users?email=${email}`, {
+        order: {
+          products: cart,
+          pointsEarned: totalPoints,
+          usedReward: appliedReward?.name || null
+        }
+      });
 
+      setUser(resUser.data.user);
+
+      // 2️⃣ Salva ordine
       await axios.post(`${API_URL}/api/orders`, {
         utente: email,
         products: cart,
-        total: appliedReward?.type === "discount"
-          ? totalPrice * (1 - appliedReward.value / 100)
-          : totalPrice,
-        points: totalPoints
+        total: finalPrice,
+        pointsEarned: totalPoints
       });
 
+      // 3️⃣ Pulisci carrello e premio applicato
       setCart([]);
       setAppliedReward(null);
       localStorage.removeItem("cart");
-      setMessage(`🎉 Ordine confermato! Punti: ${totalPoints}, Prezzo: €${totalPrice.toFixed(2)}`);
-      setTimeout(() => setMessage(""), 5000);
 
+      setMessage(`🎉 Ordine confermato! Punti guadagnati: ${totalPoints}`);
     } catch (err) {
       console.error(err);
       setMessage(err.response?.data?.message || "❌ Errore conferma ordine");
-      setTimeout(() => setMessage(""), 5000);
     }
   };
 
+  // =========================
+  // RENDER
+  // =========================
   if (loading) return <p className="loading">⏳ Caricamento...</p>;
   if (!email) return <p className="error">❌ Devi fare il login</p>;
   if (!user) return <p className="error">❌ Utente non trovato</p>;
@@ -129,54 +143,42 @@ const Orders = () => {
             ))}
           </ul>
 
-          <p className="cart-total">
-            Totale punti: <strong>{cart.reduce((acc, p) => acc + Number(p.points || 0), 0)}</strong>
-          </p>
-          <p className="cart-total">
-            Totale prezzo: <strong>
-              {appliedReward?.type === "discount"
-                ? (cart.reduce((acc, p) => acc + Number(p.price || 0), 0) * (1 - appliedReward.value / 100)).toFixed(2)
-                : cart.reduce((acc, p) => acc + Number(p.price || 0), 0).toFixed(2)
-              }
-            </strong>
-          </p>
-
+          <p>Totale punti: <strong>{totalPoints}</strong></p>
+          <p>Totale prezzo: <strong>{finalPrice.toFixed(2)}</strong></p>
           <button className="confirm-btn" onClick={confirmOrder}>✅ Conferma ordine</button>
         </div>
       )}
 
       {user.rewards?.length > 0 && (
         <div className="rewards-apply">
-          <p>🎁 Premi riscattati disponibili:</p>
+          <p>🎁 Premi riscattabili:</p>
           <div className="rewards-list">
-            {user.rewards
-              .filter(r => !user.usedDiscounts?.map(d => d.trim().toLowerCase()).includes(r.trim().toLowerCase()))
-              .map((r, i) => {
-                const rewardObj = r.includes("Sconto") 
-                  ? { name: r, type: "discount", value: parseInt(r.match(/\d+/)[0]) } 
-                  : { name: r, type: "gift" };
-                return (
-                  <button
-                    key={i}
-                    onClick={() => applyReward(rewardObj)}
-                    className={`reward-btn ${appliedReward?.name === rewardObj.name ? "selected-reward" : ""}`}
-                  >
-                    {r}
-                  </button>
-                );
-              })}
+            {user.rewards.map((r, i) => {
+              const rewardObj = r.includes("Sconto") 
+                ? { name: r, type: "discount", value: parseInt(r.match(/\d+/)[0]) } 
+                : { name: r, type: "gift" };
+              return (
+                <button
+                  key={i}
+                  className={`reward-btn ${appliedReward?.name === rewardObj.name ? "selected-reward" : ""}`}
+                  onClick={() => applyReward(rewardObj)}
+                >
+                  {r}
+                </button>
+              );
+            })}
           </div>
         </div>
       )}
 
       <div className="orders-buttons-wrapper">
         <div className="orders-buttons-container">
-          <button onClick={() => navigate("/homepage")}>🏠 Torna alla Home</button>
-          <button onClick={() => navigate("/catalogo-prodotti")}>📦 Catalogo Prodotti</button>
+          <button onClick={() => navigate("/homepage")}>🏠 Home</button>
+          <button onClick={() => navigate("/catalogo-prodotti")}>📦 Catalogo</button>
           <button onClick={() => navigate("/orders-list")}>📋 Lista Ordini</button>
         </div>
       </div>
-     </div>
+    </div>
   );
 };
 

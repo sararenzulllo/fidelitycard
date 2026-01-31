@@ -18,7 +18,6 @@ const HistoryPage = () => {
 
     try {
       const API_URL = process.env.REACT_APP_API_URL || "";
-      // ✅ usa query history=true invece di /history/:email
       const res = await axios.get(`${API_URL}/api/users?email=${email}&history=true`);
       setHistory(res.data || []);
     } catch (err) {
@@ -45,6 +44,25 @@ const HistoryPage = () => {
     return acc;
   }, {});
 
+  // Determina descrizione
+  const getDescription = (h) => {
+    if (h.action) return h.action;
+    if (h.points > 0) return h.points <= 10 ? "Bonus giornaliero" : "Ordine effettuato";
+    if (h.points < 0) return "Premio riscattato";
+    return "Movimento punti";
+  };
+
+  // Determina categoria per colore riga
+  const getCategory = (h) => {
+    if (h.points > 0 && h.points <= 10) return "bonus";
+    if (h.points > 0 && h.points > 10) return "reward";
+    if (h.points < 0) return "discount";
+    return "other";
+  };
+
+  // Colore punti positivo/negativo
+  const getPointsClass = (points) => (points >= 0 ? "positive" : "negative");
+
   return (
     <div className="history-container">
       <h2>📜 Storico punti</h2>
@@ -70,19 +88,12 @@ const HistoryPage = () => {
                 </thead>
                 <tbody>
                   {items.map((h, index) => (
-                    <tr
-                      key={index}
-                      className={
-                        h.points > 0
-                          ? "green-row"
-                          : h.action?.toLowerCase().includes("premio")
-                          ? "yellow-row"
-                          : ""
-                      }
-                    >
+                    <tr key={index} className={getCategory(h)}>
                       <td>{new Date(h.date).toLocaleDateString()}</td>
-                      <td>{h.action || h.description}</td>
-                      <td className="points">{h.points > 0 ? `+${h.points}` : h.points}</td>
+                      <td>{getDescription(h)}</td>
+                      <td className={`points ${getPointsClass(h.points)}`}>
+                        {h.points > 0 ? `+${h.points}` : h.points}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

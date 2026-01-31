@@ -7,21 +7,22 @@ export default async function handler(req, res) {
 
   try {
     if (req.method === "POST") {
-      const { utente, products, total, points } = req.body;
-      if (!utente || !products || products.length === 0 || !total) {
-        return res.status(400).json({ message: "Dati mancanti" });
-      }
+  const { utente, products, total, pointsEarned } = req.body; // <-- leggere pointsEarned
+  if (!utente || !products || products.length === 0 || !total) {
+    return res.status(400).json({ message: "Dati mancanti" });
+  }
 
-      const newOrder = new Order({
-        utente: utente.toLowerCase(),
-        products,
-        total,
-        points,
-      });
+  const newOrder = new Order({
+    utente: utente.toLowerCase(),
+    products,
+    total,
+    pointsEarned, // <-- usa pointsEarned per corrispondere al modello
+  });
 
-      const savedOrder = await newOrder.save();
-      return res.status(201).json(savedOrder);
-    }
+  const savedOrder = await newOrder.save();
+  return res.status(201).json(savedOrder);
+}
+
 
     if (req.method === "GET") {
       const email = req.query.email;

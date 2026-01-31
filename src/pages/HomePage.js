@@ -8,13 +8,13 @@ const featureCards = [
   { title: "Offerte Personalizzate", description: "Scopri promozioni pensate solo per te in base ai tuoi acquisti.", icon: "🎯" },
   { title: "Gestione Ordini", description: "Controlla i tuoi ordini, lo storico e lo stato di consegna.", icon: "🛒" },
   { title: "Lascia Recensioni", description: "Condividi la tua esperienza e aiuta altri utenti a scegliere.", icon: "📝" },
+  { title: "La tua Fidelity Card", description: "Visualizza i punti accumulati, il tuo livello attuale e il grafico dei progressi mensili.", icon: "🃏", link: "/fidelity-card" }
 ];
 
 const HomePage = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Pulizia dati utente locale
     localStorage.clear();
     navigate("/welcome");
   };
@@ -57,15 +57,20 @@ const HomePage = () => {
       {/* Descrizione centrale */}
       <main className="main-content">
         <div className="fidelity-description">
-          <h1 className="fidelity-title">🎉 FidelityCard360</h1>
+          <h1 className="fidelity-title">🏠 FidelityCard360</h1>
           <p className="fidelity-intro">
-            Benvenuto nella tua FidelityCard interattiva! Accumula punti, scopri offerte personalizzate
-            e riscatta premi esclusivi. Usa il menu laterale per navigare tra le varie funzionalità.
+            Benvenuto a casa tua! Con la <strong>FidelityCard360</strong> accumuli punti, scopri offerte personalizzate
+            e riscatta premi esclusivi. Tutto quello che ti serve per vivere un’esperienza di shopping più smart,
+            comodamente da un’unica dashboard.
           </p>
 
           <div className="features-grid">
             {featureCards.map((feature, index) => (
-              <div key={index} className="feature-card">
+              <div
+                key={index}
+                className="feature-card"
+                onClick={() => feature.link && navigate(feature.link)}
+              >
                 <div className="feature-icon">{feature.icon}</div>
                 <h3 className="feature-title">{feature.title}</h3>
                 <p className="feature-desc">{feature.description}</p>

@@ -1,242 +1,248 @@
-
+/* Fidelity Card Page */
 .fidelity-page {
+  background: #bfd9ff;
   min-height: 100vh;
-  width: 100%;
-  background: linear-gradient(135deg, #fff0a7 0%, #d45c07 100%);
+  padding: 40px 20px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 40px 20px;
   font-family: 'Poppins', sans-serif;
 }
 
+/* Container principale */
 .fidelity-container {
-  width: 100%;
   max-width: 1000px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 35px;
-  box-sizing: border-box;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  width: 100%;
+  margin: auto;
+  background: #e0f7fa;
+  padding: 35px;
+  border-radius: 25px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.08);
 }
 
-.fidelity-container h1 {
+/* Titolo principale */
+.fidelity-main-title {
   text-align: center;
-  color: #d06813;
-  font-size: 2.2rem;
+  color: #0d47a1;
+  font-size: 2.3rem;
+  font-weight: 800;
+  font-style: italic;
   margin-bottom: 25px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
 
+/* Progress bar */
 .progress-box {
-  text-align: center;
   margin-bottom: 25px;
 }
 
 .missing-points {
-  font-size: 18px;
-  color: #be6200;
-  margin-bottom: 12px;
+  text-align: center;
+  color: #0d47a1; /* tutto blu */
+  font-weight: 600;
+  font-style: italic;
 }
 
-.missing-points strong {
-  color: #cc0000;
-}
-
-.next-level {
-  background: linear-gradient(135deg, #f6985e, #eb6f0a);
-  color: #fff;
-  padding: 6px 12px;
-  border-radius: 10px;
-  font-weight: 700;
-  display: inline-block;
-  margin-left: 6px;
-  font-size: 0.95rem;
+.missing-points strong,
+.missing-points span {
+  color: inherit; /* eredita il blu */
 }
 
 .progress-bar {
-  width: 100%;
-  height: 18px;
-  background: #ffcccc;
-  border-radius: 12px;
+  height: 25px;
+  background-color: #8adaff;
+  border-radius: 15px;
   overflow: hidden;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+  max-width: 600px;
+  margin: auto;
 }
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(135deg, #e18239, hsl(22, 92%, 46%));
-  transition: width 0.4s ease;
+  border-radius: 15px;
+  transition: width 0.5s ease;
 }
 
+/* Quick actions */
 .quick-actions {
   display: flex;
-  gap: 20px;
+  gap: 12px;
   justify-content: center;
   flex-wrap: wrap;
+  margin-bottom: 30px;
 }
 
 .quick-actions button {
-  padding: 16px 28px;
-  border-radius: 16px;
-  border: none;
-  cursor: pointer;
-  background: linear-gradient(135deg, #f0924e, #e87110);
+  background-color: #1979c8;
   color: #fff;
-  font-weight: 700;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 15px;
+  font-weight: 600;
+  cursor: pointer;
   font-size: 1rem;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 .quick-actions button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 18px rgba(0,0,0,0.25);
+  background-color: #0d47a1;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
 
-.user-info {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  background-color: #ffd6d6;
-  padding: 25px;
-  border-radius: 15px;
-  color: #c24c16;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.user-info h2 {
-  text-align: center;
-  color: #b54901;
-  margin-bottom: 15px;
-  font-size: 1.5rem;
-}
-
-.info-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.user-info .label {
-  font-weight: 600;
-  margin-right: 10px;
-  min-width: 100px;
-}
-
-.user-info input {
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid #b24409;
-  flex: 1;
-  max-width: 200px;
-}
-
-.user-info button {
-  margin-left: 10px;
-  padding: 8px 16px;
-  background-color: #e56f15;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.user-info button:hover {
-  background-color: #d16f19;
-}
-
-.rewards-section {
+/* Informazioni utente */
+.full-width-info {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  background-color: #ffdcb4;
-  padding: 25px;
-  border-radius: 15px;
-  color: #b34800;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 100%;
+  margin: 20px 0;
 }
 
-.rewards-section h2 {
+.full-width-info h2 {
+  color: #0d47a1;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.full-width-info .info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: #bde0ff;
+  padding: 12px 18px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.full-width-info .info-row .label {
+  font-weight: 600;
+  color: #0d47a1;
+  font-size: 1rem;
+}
+
+.full-width-info .info-row .value,
+.full-width-info .info-row input {
+  font-weight: 500;
+  color: #042c5c;
+  font-size: 1rem;
+  text-align: right;
+}
+
+.full-width-info .info-row input {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #90caf9;
+  max-width: 180px;
+}
+
+.full-width-info .info-row button {
+  margin-left: 10px;
+}
+
+/* QR Section */
+.qr-section {
   text-align: center;
-  color: #a54d0e;
-  font-size: 1.5rem;
+  margin: 40px 0;
+}
+
+.qr-section h3 {
+  color: #0d47a1;
   margin-bottom: 15px;
+  font-size: 1.6rem;
+}
+
+.qr-info-text {
+  max-width: 500px;
+  margin: 0 auto 20px;
+  color: #0d47a1;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* Bottone QR */
+.qr-button {
+  margin-top: 12px;
+  padding: 12px 30px;
+  border-radius: 15px;
+  background-color: #2d8fdf;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.qr-button:hover {
+  background-color: #0d47a1;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+/* Rewards Section */
+.rewards-section {
+  margin: 50px 0;
+}
+
+.rewards-section h3 {
+  text-align: center;
+  color: #0d47a1;
+  font-size: 1.8rem;
+  font-style: italic;
+  margin-bottom: 30px;
 }
 
 .rewards-grid {
   display: flex;
-  gap: 18px;
+  justify-content: center;
   flex-wrap: wrap;
+  gap: 20px;
+}
+
+.reward-box {
+  flex: 1 1 250px;
+  background-color: #cbe9fe;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.reward-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+.reward-box h4 {
+  color: #0d47a1;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.reward-box p {
+  color: #0d47a1;
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+/* Chart Container */
+.chart-container {
+  margin-top: 40px;
+  width: 100%;
+  display: flex;
   justify-content: center;
 }
 
-.reward-card {
-  background-color: #ffebeb;
-  padding: 18px;
-  border-radius: 15px;
-  flex: 1 1 160px;
-  text-align: center;
-  color: #992222;
-  font-weight: 500;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.reward-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-}
-
-.qr-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  background-color: #ffdcb4;
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.qr-section h3 {
-  color: #c65010;
-  font-size: 1.3rem;
-}
-
-.qr-section p {
-  color: #c15313;
-  font-size: 0.95rem;
-}
-
-.chart-section {
-  background-color: #ffdcb4;
-  padding: 25px;
-  border-radius: 15px;
-  color: #a5410b;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
+/* Responsive */
 @media (max-width: 768px) {
-  .info-row {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .rewards-grid {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .quick-actions {
-    flex-direction: column;
-  }
-
-  .fidelity-container {
-    padding: 25px;
-    gap: 25px;
-  }
+  .fidelity-container { padding: 20px; }
+  .progress-bar { max-width: 100%; }
+  .quick-actions button { padding: 10px 18px; font-size: 0.95rem; }
+  .reward-box { flex: 1 1 100%; }
+  .chart-container { max-width: 100%; }
 }

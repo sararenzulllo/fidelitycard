@@ -12,7 +12,10 @@ const OrdersList = () => {
   const API_URL = process.env.REACT_APP_API_URL || "";
 
   useEffect(() => {
-    if (!email) { setLoading(false); return; }
+    if (!email) {
+      setLoading(false);
+      return;
+    }
 
     const fetchOrders = async () => {
       try {
@@ -21,11 +24,14 @@ const OrdersList = () => {
       } catch (err) {
         console.error("Errore fetch ordini:", err);
         setOrders([]);
-      } finally { setLoading(false); }
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchOrders();
-    const interval = setInterval(fetchOrders, 5000);
+
+    const interval = setInterval(fetchOrders, 5000); // auto refresh ordini ogni 5s
     return () => clearInterval(interval);
   }, [email, API_URL]);
 
@@ -35,6 +41,7 @@ const OrdersList = () => {
   return (
     <div className="orderslist-container">
       <h1 className="title">📦 Ordini Effettuati</h1>
+
       {orders.length === 0 ? (
         <p className="empty">Nessun ordine effettuato</p>
       ) : (
@@ -45,19 +52,23 @@ const OrdersList = () => {
               <p>📅 {new Date(order.date).toLocaleDateString()}</p>
               <p>💰 Totale: €{order.total.toFixed(2)}</p>
               <p>⭐ Punti: {order.pointsEarned}</p>
+              {order.usedReward && <p>🎁 Premio utilizzato: {order.usedReward}</p>}
               <div className="order-products">
                 {order.products?.map((p, i) => (
-                  <p key={i}>• {p.name} × {p.quantity}</p>
+                  <p key={i}>• {p.name} × {p.quantity || 1}</p>
                 ))}
               </div>
             </div>
           ))}
         </div>
       )}
+
       <div className="orders-buttons-wrapper">
-        <button onClick={() => navigate("/homepage")}>🏠 Home</button>
-        <button onClick={() => navigate("/catalogo-prodotti")}>📦 Catalogo Prodotti</button>
-        <button onClick={() => navigate("/ordini")}>🛒 Ordina Prodotti</button>
+        <div className="orders-buttons-container">
+          <button onClick={() => navigate("/homepage")}>🏠 Home</button>
+          <button onClick={() => navigate("/catalogo-prodotti")}>📦 Catalogo Prodotti</button>
+          <button onClick={() => navigate("/ordini")}>🛒 Ordina Prodotti</button>
+        </div>
       </div>
     </div>
   );

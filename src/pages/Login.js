@@ -13,7 +13,7 @@ const Login = ({ setIsLoggedIn }) => {
   // Punto finale API
   const API_URL = process.env.REACT_APP_API_URL || "/api";
 
- const handleLogin = async (e) => {
+  const handleLogin = async (e) => {
   e.preventDefault();
 
   try {
@@ -36,7 +36,7 @@ const Login = ({ setIsLoggedIn }) => {
     toast.error(err.response?.data?.message || "❌ Errore nel login");
   }
 };
-
+  
 
   return (
     <div className="auth-page">

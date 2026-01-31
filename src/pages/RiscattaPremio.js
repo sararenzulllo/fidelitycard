@@ -26,10 +26,27 @@ const RiscattaPremio = () => {
       .catch(err => console.error("Errore fetch premi:", err));
   }, [email, API_URL]);
 
+  // ✅ Funzione aggiornata per riscattare premio
   const redeemPrize = async (premio) => {
+    if (user.points < premio.punti) {
+      setMessage("❌ Punti insufficienti");
+      setTimeout(() => setMessage(""), 3000);
+      return;
+    }
+
     try {
-      const res = await axios.put(`${API_URL}/api/users?email=${email}`, { redeemPrize: premio });
-      setUser(res.data);
+      // Invia richiesta al backend per aggiornare punti e premi
+      const res = await axios.put(`${API_URL}/api/users?email=${email}`, {
+        redeemPrize: premio
+      });
+
+      // Aggiorna lo stato locale con i nuovi punti e premi
+      setUser(prev => ({
+        ...prev,
+        points: prev.points - premio.punti,
+        rewards: [...prev.rewards, premio.nome]
+      }));
+
       setMessage(`🎉 Hai riscattato: ${premio.nome}`);
       setTimeout(() => setMessage(""), 3000);
     } catch (err) {

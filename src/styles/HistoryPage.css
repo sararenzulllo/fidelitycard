@@ -1,159 +1,108 @@
-
+/* Sfondo pagina */
 .history-container {
+  background: linear-gradient(135deg, hsl(222, 100%, 92%), #abcdff);
   min-height: 100vh;
-  width: 100%;
   padding: 40px 20px;
-  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   font-family: 'Poppins', sans-serif;
-  color: #ff0909;
- background: linear-gradient(135deg, #fff0a7 0%, #d45c07 100%);
-  transition: background 0.5s ease;
+  color: #0f2c55;
 }
 
-.history-container:hover {
- background: linear-gradient(135deg, #fff0a7 0%, #ff6a00 100%);
-}
-
+/* Titolo principale */
 .history-container h2 {
+  font-size: 2rem;
+  color: #0f2c55;
+  margin-bottom: 25px;
+  font-style: italic;
   text-align: center;
-  color: hsl(20, 80%, 49%);
-  margin-bottom: 40px;
-  font-size: 36px;
-  text-shadow: 1px 1px 6px rgba(0,0,0,0.1);
-  transition: transform 0.3s;
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
-.history-container h2:hover {
-  transform: scale(1.05);
-}
-
+/* Blocchi mensili */
 .month-block {
-  background: linear-gradient(145deg, #ffe2b1 0%, #db8e24 100%);
-  padding: 30px;
-  border-radius: 25px;
-  margin-bottom: 30px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-  transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
-  cursor: pointer;
+  background: #ffffff;
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 25px;
+  padding: 20px 25px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .month-block:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.15);
-  background: linear-gradient(145deg, #ffbe56 0%, #ffc897 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
 }
 
 .month-block h3 {
-  margin-bottom: 20px;
-  color: #ea6827;
-  font-size: 28px;
-  font-weight: 700;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  font-size: 1.4rem;
+  color: #0f2c55;
+  margin-bottom: 15px;
+  font-weight: 600;
+  font-style: italic;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
+.month-block h3::after {
+  content: "▼";
+  font-size: 1rem;
+  transition: transform 0.3s;
+}
+
+.month-block.collapsed h3::after {
+  transform: rotate(-90deg);
+}
+
+/* Tabella storico */
 table {
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 12px;
-  transition: all 0.3s;
+  border-collapse: collapse;
 }
 
 thead th {
+  background: #bbdefb;
+  color: #0f2c55;
+  font-weight: 600;
+  padding: 10px;
   text-align: left;
-  padding: 14px 15px;
-  background: linear-gradient(135deg, #ff7f50, #f75d25);
-  color: #fff;
-  border-radius: 12px 12px 0 0;
-  font-weight: 700;
+  border-radius: 8px 8px 0 0;
 }
 
 tbody td {
-  padding: 14px 15px;
-  background: #fff2ee;
-  border-radius: 12px;
-  font-size: 16px;
-  display: table-cell;
-  transition: transform 0.3s, background 0.3s;
+  padding: 10px;
+  font-size: 1.2rem;
+  border-bottom: 1px solid #e0e0e0;
+  transition: background 0.3s, transform 0.2s;
 }
 
-tbody tr:hover td {
-  transform: translateX(5px);
-  background: #ffe0d6;
+/* Evidenziazione righe hover */
+tbody tr:hover {
+  transform: scale(1.01);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.green-row td {
-  background-color: #fff8f0;
-  font-weight: 600;
-  color: #2c7a2c;
-  transition: background 0.3s, color 0.3s;
-}
+/* Colori chiari per categoria */
+tbody tr.discount { background: #fff3e0; }  /* sconti/arancio chiaro */
+tbody tr.reward   { background: #e1f5fe; }  /* premi/azzurro chiaro */
+tbody tr.bonus    { background: #e8f5e9; }  /* bonus/verde chiaro */
+tbody tr.refund   { background: #ffebee; }  /* resi/rosa chiaro */
+tbody tr.other    { background: #f3e5f5; }  /* altro/viola chiaro */
 
-.green-row td:hover {
-  background-color: #d1f7d1;
-  color: #1f5a1f;
-}
+/* Colore punti positivo/negativo */
+.points.positive { color: #0d47a1; font-weight: 600; } /* blu */
+.points.negative { color: #d32f2f; font-weight: 600; } /* rosso */
 
-.yellow-row td {
-  background-color: #fff7f1;
-}
-
-.points {
-  font-weight: 700;
-  color: #ff5500;
-  transition: transform 0.3s, color 0.3s;
-}
-
-.points:hover {
-  color: #ff3300;
-  transform: scale(1.2);
-}
-
-.loading, .error {
-  text-align: center;
-  font-size: 18px;
-  margin-top: 50px;
-  font-weight: 600;
-}
-
-.error {
-  color: #cc0000;
-  animation: shake 0.5s infinite alternate;
-}
-
-@keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-4px); }
-  50% { transform: translateX(4px); }
-  75% { transform: translateX(-4px); }
-  100% { transform: translateX(4px); }
-}
-
+/* Responsive */
 @media (max-width: 768px) {
-  table, thead, tbody, th, td, tr {
-    display: block;
-  }
-
-  thead {
-    display: none;
-  }
-
-  tbody td {
-    position: relative;
-    padding-left: 50%;
-    margin-bottom: 10px;
-    border-bottom: none;
-  }
-
-  tbody td::before {
-    position: absolute;
-    left: 15px;
-    width: 45%;
-    white-space: nowrap;
-    font-weight: 600;
-    color: #9d1313;
-  }
-
-  tbody td:nth-of-type(1)::before { content: "Data"; }
-  tbody td:nth-of-type(2)::before { content: "Descrizione"; }
-  tbody td:nth-of-type(3)::before { content: "Punti"; }
+  .month-block { padding: 15px; }
+  thead th, tbody td { padding: 8px; font-size: 0.9rem; }
+  .history-container h2 { font-size: 1.6rem; }
+  .month-block h3 { font-size: 1.1rem; }
 }

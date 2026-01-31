@@ -3,19 +3,20 @@
   min-height: 100vh;
   padding: 50px 20px;
   font-family: 'Poppins', sans-serif;
-   background: linear-gradient(135deg, #f1ff8b 0%, #ba2f1a 100%);
-  color: #8b1f1f;
+  background: linear-gradient(156deg, #d8fffc 0%, #05558e 100%); /* blu chiaro soft */
+  color: #1f3c8b;
 }
 
 .recensioni-container h2, .recensioni-container h3 {
   text-align: center;
-  color: #c11212;
+  color: #1b03b9;
   margin-bottom: 25px;
-  font-weight: 700;
+  font-weight: 900;
 }
 
 .recensioni-container h3 {
   margin-top: 40px;
+  font-weight: 900;
 }
 
 .review-form {
@@ -30,7 +31,7 @@
   display: flex;
   flex-direction: column;
   font-weight: 600;
-  color: #8b1f1f;
+  color: #1f358b;
   font-size: 1rem;
 }
 
@@ -39,7 +40,7 @@
 .review-form textarea {
   padding: 12px 15px;
   border-radius: 12px;
-  border: 2px solid #990606;
+  border: 2px solid #061c99;
   font-size: 1rem;
   outline: none;
   margin-top: 5px;
@@ -49,24 +50,18 @@
 .review-form select:focus,
 .review-form input:focus,
 .review-form textarea:focus {
-  border-color: #8c0f0f;
+  border-color: #0f398c;
 }
 
 .review-form button {
   padding: 12px 20px;
   border-radius: 12px;
   border: none;
-  background-color: #a30d0d;
   color: #fff;
   font-weight: 600;
   font-size: 1.1rem;
   cursor: pointer;
   transition: transform 0.2s, background-color 0.2s;
-}
-
-.review-form button:hover {
-  background-color: #910c0c;
-  transform: scale(1.05);
 }
 
 .reviews-list {
@@ -92,13 +87,13 @@
 
 .review-card strong {
   font-size: 1.1rem;
-  color: #8b1f1f;
+  color: #1f598b;
 }
 
 .review-card p {
   font-size: 1rem;
   line-height: 1.5;
-  color: #a91111;
+  color: #1120a9;
   margin-top: 8px;
 }
 
@@ -116,7 +111,7 @@
 }
 
 .recensioni-container button {
-  background-color: #c91616;
+  background-color: #082c74;
   color: #fff;
   border-radius: 12px;
   border: none;
@@ -127,6 +122,6 @@
 }
 
 .recensioni-container button:hover {
-  background-color: #b50d0d;
+  background-color: #0811bdee;
   transform: scale(1.05);
 }

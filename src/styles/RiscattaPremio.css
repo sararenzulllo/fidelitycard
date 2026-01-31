@@ -1,17 +1,17 @@
 .riscatta-page {
   min-height: 100vh;
   padding: 5vh 5vw; 
-  background: linear-gradient(135deg, #fffda5, #d3ca26);
+  background: linear-gradient(125deg, hsl(72, 100%, 92%), #c0b823);
   font-family: 'Poppins', sans-serif;
-  color: #d16c06;
+  color: #b67b04; /* marrone scuro testo */
 }
 
 .page-title {
   text-align: center;
-  font-size: clamp(28px, 5vw, 42px); 
-  color: #d48c1f;
+  font-size: clamp(28px, 3vw, 42px); 
+  color: #b78f00; /* arancio scuro */
   margin-bottom: 5vh;
-  font-weight: 700;
+  font-weight: 600;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
@@ -19,12 +19,23 @@
   max-width: 70%;
   margin: 0 auto 5vh auto;
   text-align: center;
-  color: #a48910;
+  color: #5a4000;
 }
 
+.missing-points {
+  font-size: clamp(16px, 2vw, 20px);
+  font-weight: 850;
+  color: #b77700; /* arancio scuro */
+  margin-bottom: 0.8vh;
+}
+
+.missing-points .highlight {
+  color: #d04606; /* giallo acceso per i numeri */
+  font-weight: 700;
+}
 .progress-bar {
   height: clamp(16px, 2vh, 24px); 
-  background: #ffeaa0;
+  background: #fff3b0; /* giallo chiaro */
   border-radius: 1rem;
   overflow: hidden;
   margin-top: 1vh;
@@ -33,19 +44,19 @@
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #f39c12, #e67e22);
+  background: linear-gradient(90deg, #ffe44d, #d9b31c); /* giallo → arancione */
   border-radius: 1rem;
   transition: width 0.5s ease-in-out;
 }
 
 .success-message {
   text-align: center;
-  color: #2d7a00;
+  color: #8a4c00; /* arancio scuro */
   font-weight: bold;
   font-size: clamp(16px, 2vw, 20px);
   margin-bottom: 3vh;
   padding: 1vh 2vw;
-  background: #e8ffc8;
+  background: #fff1c2; /* giallo chiaro */
   border-radius: 1rem;
   box-shadow: 0 3px 8px rgba(0,0,0,0.1);
 }
@@ -64,8 +75,8 @@
 }
 
 .badge-ottenuto {
-  background: #ebd463;
-  color: #c23f17;
+  background: #ffdc73; /* giallo arancio chiaro */
+  color: #b75e00; /* arancio scuro testo */
   padding: clamp(6px, 1vw, 12px) clamp(12px, 2vw, 16px);
   border-radius: 1.5rem;
   font-weight: 800;
@@ -81,23 +92,23 @@
 }
 
 .premio-card {
-  background: #fff;
+  background: #fff6d6; /* giallo chiaro */
   padding: clamp(30px, 4vw, 50px);
   border-radius: 18px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.1);
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  color: #be7d06;
+  color: #975003; /* arancio scuro testo */
 }
 
 .premio-card h3 {
-  color: #d27f00;
+  color: #9c6204; /* arancio */
   font-size: clamp(20px, 2vw, 16px);
   margin-bottom: 1.5vh;
 }
 
 .premio-card p {
-  color: #9d820c;
+  color: #b75e00; /* arancio scuro testo */
   font-size: clamp(16px, 2vw, 18px);
   margin-bottom: 1vh;
 }
@@ -114,14 +125,14 @@
   cursor: pointer;
   font-weight: bold;
   font-size: clamp(14px, 2vw, 16px);
-  background-color: #eeb72b;
+  background-color: #e5b31f; /* arancio */
   color: #fff;
   transition: all 0.3s ease;
   box-shadow: 0 5px 14px rgba(0,0,0,0.15);
 }
 
 .redeem-btn:hover:not(:disabled) {
-  background-color: #dcb123;
+  background-color: #ff8000;
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0,0,0,0.2);
 }
@@ -145,7 +156,7 @@
   font-size: clamp(16px, 3vw, 20px);
   font-weight: 700;
   border-radius: 1rem;
-  background: linear-gradient(135deg, #ff9f1c, #af5c13);
+  background: linear-gradient(135deg, #e7c53c, #c49104);
   color: #fff;
   border: none;
   cursor: pointer;
@@ -156,7 +167,7 @@
 }
 
 .green-btn:hover {
-  background: linear-gradient(135deg, #e67e22, #c95c00);
+  background: linear-gradient(135deg, #efd64c, #a47601); 
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
@@ -166,20 +177,21 @@
 }
 
 .premi-disponibili-title {
-  
   font-size: clamp(8px, 2vw, 28px); 
   font-weight: 700;
-  color: #d27f00;
+  color: #b8770f; /* arancio */
   margin-bottom: 1.5vh;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
 .punti-totali {
   text-align: center;
-  font-size: clamp(22px, 3vw, 18px); 
+  font-size: clamp(8px, 3vw, 28px); 
   font-weight: 600;
   margin-bottom: 2vh;
+  color: #b75e00; /* arancio scuro */
 }
+
 
 @media (max-width: 500px) {
   .green-btn, .redeem-btn {
