@@ -8,7 +8,7 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
-  const [quantities, setQuantities] = useState({}); // tiene traccia delle quantità selezionate
+  const [quantities, setQuantities] = useState({});
 
   const API_URL = process.env.REACT_APP_API_URL || "";
 
@@ -22,7 +22,6 @@ const Products = () => {
         const initialQuantities = {};
         res.data.forEach(p => (initialQuantities[p._id] = 1));
         setQuantities(initialQuantities);
-
       } catch (err) {
         console.error(err);
         setMessage("❌ Impossibile caricare i prodotti");
@@ -71,7 +70,6 @@ const Products = () => {
     <div className="products-container">
       <h1>📦 Catalogo Prodotti</h1>
 
-      {/* BOTTONE AGGIUNGI PRODOTTO */}
       <button className="add-btn" onClick={() => navigate("/aggiungi-prodotto")}>
         ➕ Aggiungi prodotto
       </button>
@@ -82,7 +80,8 @@ const Products = () => {
         {products.map((p, i) => (
           <div key={p._id} className={`product-row ${i % 2 === 0 ? "even" : "odd"}`}>
             <div className="product-image">
-              {p.image && <img src={`${API_URL}${p.image}`} alt={p.name} />}
+              {/* Usa la cartella public/uploads */}
+              {p.image && <img src={`/uploads/${p.image}`} alt={p.name} />}
             </div>
             <div className="product-info">
               <h2>{p.name}</h2>
@@ -94,8 +93,7 @@ const Products = () => {
             </div>
             <div className="product-actions">
               <button onClick={() => deleteProduct(p._id)}>Elimina</button>
-              
-              {/* Sezione quantità */}
+
               <div className="quantity-controls">
                 <button onClick={() => updateQuantity(p._id, -1)}>−</button>
                 <span>{quantities[p._id] || 1}</span>
