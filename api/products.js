@@ -1,80 +1,75 @@
+import express from "express";
 import Product from "../models/Product.js";
 import { connectDB } from "../db.js";
+import multer from "multer";
+import path from "path";
 
+const router = express.Router();
+await connectDB();
 
-export default async function handler(req, res) {
-  await connectDB();
+// Determina se siamo in locale
+const isLocal = process.env.NODE_ENV !== "production";
 
-  try {
-    // =========================
-    // GET /api/products
-    // =========================
-    if (req.method === "GET") {
-      const products = await Product.find();
-      return res.json(products);
-    }
-
-    // =========================
-    // POST /api/products
-    // image = URL (Cloudinary ecc.)
-    // =========================
-    if (req.method === "POST") {
-      const { name, price, points, quantity, description, image } = req.body;
-
-      if (!name || !price) {
-        return res.status(400).json({ message: "Dati mancanti" });
-      }
-
-      const newProduct = new Product({
-        name,
-        price,
-        points,
-        quantity,
-        description,
-        image: image || "",
-      });
-
-      await newProduct.save();
-      return res.status(201).json(newProduct);
-    }
-
-    // =========================
-    // PUT /api/products?id=
-    // =========================
-    if (req.method === "PUT") {
-      const { id } = req.query;
-      const { quantity } = req.body;
-
-      if (!id) {
-        return res.status(400).json({ message: "ID mancante" });
-      }
-
-      const updated = await Product.findByIdAndUpdate(
-        id,
-        { quantity },
-        { new: true }
-      );
-
-      return res.json(updated);
-    }
-
-    // =========================
-    // DELETE /api/products?id=
-    // =========================
-    if (req.method === "DELETE") {
-      const { id } = req.query;
-
-      if (!id) {
-        return res.status(400).json({ message: "ID mancante" });
-      }
-
-      await Product.findByIdAndDelete(id);
-      return res.json({ message: "Prodotto eliminato" });
-    }
-
-    return res.status(405).json({ message: "Metodo non consentito" });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Errore server prodotti" });
-  }
+// Configurazione multer solo per locale
+let upload;
+if (isLocal) {
+  const storage = multer.diskStorage({
+    destination: (req, file, cb) =>
+      cb(null, path.join(process.cwd(), "public/images")),
+    filename: (req, file, cb) => {
+      const timestamp = Date.now();
+      const safeName = file.originalname.replace(/\s/g, "_");
+      cb(null, `${timestamp}-${safeName}`);
+    },
+  });
+  upload = multer({ storage });
 }
+
+// =========================
+// GET /api/products
+// =========================
+router.get("/", async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.json(products);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Errore server prodotti" });
+  }
+});
+
+// =========================
+// POST /api/products
+// =========================
+router.post("/", isLocal ? upload.single("image") : async (req, res, next) => next(), async (req, res) => {
+  try {
+    const { name, price, points, quantity, description, image } = req.body;
+
+    let imageName;
+
+    if (isLocal) {
+      if (!req.file) return res.status(400).json({ message: "Immagine mancante" });
+      imageName = req.file.filename; // multer salva il file
+    } else {
+      if (!image) return res.status(400).json({ message: "Immagine mancante" });
+      imageName = image; // nome file già presente in /public/images su Vercel
+    }
+
+    const newProduct = new Product({
+      name,
+      price,
+      points,
+      quantity,
+      description,
+      image: imageName,
+    });
+
+    await newProduct.save();
+    res.status(201).json(newProduct);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Errore aggiunta prodotto" });
+  }
+});
+
+export default router;

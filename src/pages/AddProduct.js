@@ -3,36 +3,58 @@ import axios from "axios";
 import "../styles/AddProduct.css";
 
 const AddProduct = () => {
+  const isLocal = !process.env.NODE_ENV || process.env.NODE_ENV === "development";
+
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [points, setPoints] = useState("");
   const [quantity, setQuantity] = useState("");
   const [description, setDescription] = useState("");
-  const [imageURL, setImageURL] = useState(""); // ora solo URL
+  const [imageFile, setImageFile] = useState(null);  // in locale
+  const [imageName, setImageName] = useState("");    // in produzione (Vercel)
   const [successMsg, setSuccessMsg] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await axios.post("/api/products", {
-        name,
-        price: Number(price),
-        points: Number(points),
-        quantity: Number(quantity),
-        description,
-        image: imageURL, // qui metti URL
-      });
+      if (isLocal) {
+        if (!imageFile) return alert("Seleziona un'immagine!");
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("price", Number(price));
+        formData.append("points", Number(points));
+        formData.append("quantity", Number(quantity));
+        formData.append("description", description);
+        formData.append("image", imageFile);
 
+        await axios.post("/api/products", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+
+      } else {
+        if (!imageName) return alert("Inserisci il nome dell'immagine già presente in /public/images!");
+        await axios.post("/api/products", {
+          name,
+          price: Number(price),
+          points: Number(points),
+          quantity: Number(quantity),
+          description,
+          image: imageName,  // usa file già caricato nel deploy
+        });
+      }
+
+      // Reset form
       setName("");
       setPrice("");
       setPoints("");
       setQuantity("");
       setDescription("");
-      setImageURL("");
-
+      setImageFile(null);
+      setImageName("");
       setSuccessMsg("Prodotto aggiunto correttamente!");
       setTimeout(() => setSuccessMsg(""), 3000);
+
     } catch (err) {
       console.error(err);
       alert("Errore aggiunta prodotto");
@@ -42,55 +64,20 @@ const AddProduct = () => {
   return (
     <div className="add-product-container">
       <h1>Aggiungi Prodotto</h1>
-
       {successMsg && <p className="success-msg">{successMsg}</p>}
 
       <form onSubmit={handleSubmit} className="add-product-form">
-        <input
-          type="text"
-          placeholder="Nome prodotto"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
+        <input type="text" placeholder="Nome prodotto" value={name} onChange={e => setName(e.target.value)} required />
+        <input type="number" placeholder="Prezzo" value={price} onChange={e => setPrice(e.target.value)} required />
+        <input type="number" placeholder="Punti" value={points} onChange={e => setPoints(e.target.value)} required />
+        <input type="number" placeholder="Quantità" value={quantity} onChange={e => setQuantity(e.target.value)} required />
+        <textarea placeholder="Descrizione" value={description} onChange={e => setDescription(e.target.value)} rows={3} />
 
-        <input
-          type="number"
-          placeholder="Prezzo"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          required
-        />
-
-        <input
-          type="number"
-          placeholder="Punti"
-          value={points}
-          onChange={(e) => setPoints(e.target.value)}
-          required
-        />
-
-        <input
-          type="number"
-          placeholder="Quantità"
-          value={quantity}
-          onChange={(e) => setQuantity(e.target.value)}
-          required
-        />
-
-        <textarea
-          placeholder="Descrizione del prodotto"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          rows={3}
-        />
-
-        <input
-          type="text"
-          placeholder="URL immagine"
-          value={imageURL}
-          onChange={(e) => setImageURL(e.target.value)}
-        />
+        {isLocal ? (
+          <input type="file" accept="image/*" onChange={e => setImageFile(e.target.files[0])} required />
+        ) : (
+          <input type="text" placeholder="Nome immagine già presente in /public/images" value={imageName} onChange={e => setImageName(e.target.value)} required />
+        )}
 
         <button type="submit">Aggiungi Prodotto</button>
       </form>

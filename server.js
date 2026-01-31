@@ -1,10 +1,11 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { connectDB } from "./db.js";  // <-- corrisponde a export nominato
+import path from "path";
+import { connectDB } from "./db.js";
 
-// import router dalle cartelle API
-import productsRouter from "./api/products.js"; 
+// router dalle cartelle API
+import productsRouter from "./api/products.js";
 import loginRouter from "./api/login.js";
 import logoutRouter from "./api/logout.js";
 import registerRouter from "./api/register.js";
@@ -21,9 +22,17 @@ const app = express();
 // middleware
 app.use(cors());
 app.use(express.json());
-app.use("/uploads", express.static("uploads"));
 
-// rotte
+// ===================================
+// Servire le immagini statiche
+// ===================================
+app.use("/images", express.static(path.join(process.cwd(), "public/images")));
+// Se hai file caricati dinamicamente in /uploads
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+
+// ===================================
+// Rotte API
+// ===================================
 app.use("/api/products", productsRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/logout", logoutRouter);
