@@ -1,6 +1,6 @@
 /* Fidelity Card Page */
 .fidelity-page {
-  background: #bfd9ff;
+  background: #d7e7ff;
   min-height: 100vh;
   padding: 40px 20px;
   display: flex;
@@ -49,7 +49,7 @@
 
 .progress-bar {
   height: 25px;
-  background-color: #8adaff;
+  background-color: #7ed6ff;
   border-radius: 15px;
   overflow: hidden;
   max-width: 600px;
@@ -72,7 +72,7 @@
 }
 
 .quick-actions button {
-  background-color: #1979c8;
+  background-color: #1468ad;
   color: #fff;
   border: none;
   padding: 12px 25px;

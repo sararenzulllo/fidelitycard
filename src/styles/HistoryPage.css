@@ -1,6 +1,6 @@
 /* Sfondo pagina */
 .history-container {
-  background: linear-gradient(135deg, hsl(222, 100%, 92%), #abcdff);
+  background: linear-gradient(135deg, hsl(222, 100%, 92%), #b5d2ff);
   min-height: 100vh;
   padding: 40px 20px;
   display: flex;
