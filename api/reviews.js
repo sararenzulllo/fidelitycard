@@ -1,36 +1,36 @@
+// backend/api/reviews.js
 import Review from "../models/Review.js";
 import { connectDB } from "../db.js";
 
-
 export default async function handler(req, res) {
-  await connectDB();
-
   try {
+    // Connessione al DB
+    await connectDB();
+    console.log("✅ DB connesso correttamente");
+
     // =========================
     // GET /api/reviews?userEmail=
     // =========================
     if (req.method === "GET") {
       const { userEmail } = req.query;
+      if (!userEmail) return res.status(400).json({ message: "Email mancante" });
 
-      if (!userEmail) {
-        return res.status(400).json({ message: "Email mancante" });
-      }
+      console.log(`🔍 Recupero recensioni per: ${userEmail}`);
+      const reviews = await Review.find({ userEmail: userEmail.toLowerCase() }).sort({ createdAt: -1 });
 
-      const reviews = await Review.find({
-        userEmail: userEmail.toLowerCase(),
-      }).sort({ createdAt: -1 });
-
-      return res.json(reviews);
+      return res.status(200).json(reviews);
     }
 
     // =========================
     // POST /api/reviews
-    // photo = URL opzionale
     // =========================
     if (req.method === "POST") {
+      console.log("📩 Body ricevuto:", req.body);
+
       const { product, rating, comment, userEmail, photo } = req.body;
 
       if (!product || !rating || !comment || !userEmail) {
+        console.warn("❌ POST reviews: Dati mancanti", req.body);
         return res.status(400).json({ message: "Dati mancanti" });
       }
 
@@ -43,12 +43,15 @@ export default async function handler(req, res) {
       });
 
       const saved = await newReview.save();
+      console.log("✅ Recensione salvata:", saved);
+
       return res.status(201).json(saved);
     }
 
+    // Metodo non consentito
     return res.status(405).json({ message: "Metodo non consentito" });
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({ message: "Errore server recensioni" });
+    console.error("❌ ERRORE SERVER recensioni:", err);
+    return res.status(500).json({ message: "Errore server recensioni", error: err.message });
   }
 }

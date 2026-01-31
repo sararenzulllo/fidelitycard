@@ -26,7 +26,6 @@ const RiscattaPremio = () => {
       .catch(err => console.error("Errore fetch premi:", err));
   }, [email, API_URL]);
 
-  // ✅ Funzione aggiornata per riscattare premio
   const redeemPrize = async (premio) => {
     if (user.points < premio.punti) {
       setMessage("❌ Punti insufficienti");
@@ -35,15 +34,13 @@ const RiscattaPremio = () => {
     }
 
     try {
-      // Invia richiesta al backend per aggiornare punti e premi
       const res = await axios.put(`${API_URL}/api/users?email=${email}`, {
         redeemPrize: premio
       });
 
-      // Aggiorna lo stato locale con i nuovi punti e premi
       setUser(prev => ({
         ...prev,
-        points: prev.points - premio.punti,
+        points: Number((prev.points - premio.punti).toFixed(2)),
         rewards: [...prev.rewards, premio.nome]
       }));
 
@@ -68,7 +65,7 @@ const RiscattaPremio = () => {
 
       <div className="progress-box">
         <p className="missing-points">
-          🎯 <span className="highlight">{Math.max(0, nextReward - user.points)}</span> punti al prossimo premio
+          🎯 <span className="highlight">{Math.max(0, (nextReward - user.points).toFixed(2))}</span> punti al prossimo premio
         </p>
         <div className="progress-bar">
           <div className="progress-fill" style={{ width: `${progress}%` }} />
@@ -107,7 +104,7 @@ const RiscattaPremio = () => {
                     Valido fino a: {new Date(premio.validUntil).toLocaleDateString()}
                   </p>
                   <div className="premio-actions">
-                    <span className="premio-punti">{premio.pointsNeeded} pts</span>
+                    <span className="premio-punti">{premio.pointsNeeded.toFixed(2)} pts</span>
                     <button className="redeem-btn"
                       disabled={alreadyRedeemed || notEnoughPoints}
                       onClick={() => redeemPrize({ nome: premio.name, punti: premio.pointsNeeded })}
@@ -123,7 +120,9 @@ const RiscattaPremio = () => {
       </section>
 
       <div className="punti-totali-container">
-        <p className="punti-totali">Punti disponibili: <strong>{user.points}</strong></p>
+        <p className="punti-totali">
+          Punti disponibili: <strong>{user.points.toFixed(2)}</strong>
+        </p>
       </div>
 
       <div className="riscatta-buttons-container">

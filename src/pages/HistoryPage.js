@@ -28,9 +28,7 @@ const HistoryPage = () => {
     }
   };
 
-  useEffect(() => {
-    fetchHistory();
-  }, [email]);
+  useEffect(() => { fetchHistory(); }, [email]);
 
   if (loading) return <p className="loading">⏳ Caricamento storico...</p>;
   if (error) return <p className="error">❌ {error}</p>;
@@ -44,23 +42,8 @@ const HistoryPage = () => {
     return acc;
   }, {});
 
-  // Determina descrizione
-  const getDescription = (h) => {
-    if (h.action) return h.action;
-    if (h.points > 0) return h.points <= 10 ? "Bonus giornaliero" : "Ordine effettuato";
-    if (h.points < 0) return "Premio riscattato";
-    return "Movimento punti";
-  };
+  const getDescription = (h) => h.action || "Movimento punti";
 
-  // Determina categoria per colore riga
-  const getCategory = (h) => {
-    if (h.points > 0 && h.points <= 10) return "bonus";
-    if (h.points > 0 && h.points > 10) return "reward";
-    if (h.points < 0) return "discount";
-    return "other";
-  };
-
-  // Colore punti positivo/negativo
   const getPointsClass = (points) => (points >= 0 ? "positive" : "negative");
 
   return (
@@ -88,7 +71,8 @@ const HistoryPage = () => {
                 </thead>
                 <tbody>
                   {items.map((h, index) => (
-                    <tr key={index} className={getCategory(h)}>
+                    // **NESSUNA CLASSE PER CATEGORIA**, solo punti
+                    <tr key={index}>
                       <td>{new Date(h.date).toLocaleDateString()}</td>
                       <td>{getDescription(h)}</td>
                       <td className={`points ${getPointsClass(h.points)}`}>

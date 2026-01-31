@@ -1,4 +1,3 @@
-/* Sfondo pagina */
 .history-container {
   background: linear-gradient(135deg, hsl(222, 100%, 92%), #b5d2ff);
   min-height: 100vh;
@@ -10,7 +9,6 @@
   color: #0f2c55;
 }
 
-/* Titolo principale */
 .history-container h2 {
   font-size: 2rem;
   color: #0f2c55;
@@ -21,7 +19,6 @@
   text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
-/* Blocchi mensili */
 .month-block {
   background: #ffffff;
   width: 100%;
@@ -60,10 +57,11 @@
   transform: rotate(-90deg);
 }
 
-/* Tabella storico */
 table {
   width: 100%;
   border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 thead th {
@@ -82,24 +80,25 @@ tbody td {
   transition: background 0.3s, transform 0.2s;
 }
 
-/* Evidenziazione righe hover */
-tbody tr:hover {
+/* Righe alternate (zebra) */
+tbody tr:nth-child(odd) td {
+  background-color: #fde4ff !important; /* azzurro chiaro */
+}
+
+tbody tr:nth-child(even) td {
+  background-color: #defffb !important; /* bianco */
+}
+
+/* Hover righe */
+tbody tr:hover td {
   transform: scale(1.01);
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-/* Colori chiari per categoria */
-tbody tr.discount { background: #fff3e0; }  /* sconti/arancio chiaro */
-tbody tr.reward   { background: #e1f5fe; }  /* premi/azzurro chiaro */
-tbody tr.bonus    { background: #e8f5e9; }  /* bonus/verde chiaro */
-tbody tr.refund   { background: #ffebee; }  /* resi/rosa chiaro */
-tbody tr.other    { background: #f3e5f5; }  /* altro/viola chiaro */
-
-/* Colore punti positivo/negativo */
+/* Punti positivo/negativo */
 .points.positive { color: #0d47a1; font-weight: 600; } /* blu */
 .points.negative { color: #d32f2f; font-weight: 600; } /* rosso */
 
-/* Responsive */
 @media (max-width: 768px) {
   .month-block { padding: 15px; }
   thead th, tbody td { padding: 8px; font-size: 0.9rem; }

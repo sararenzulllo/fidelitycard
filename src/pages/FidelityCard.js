@@ -70,14 +70,18 @@ const FidelityCard = () => {
       alert("🎉 Bonus giornaliero aggiunto!");
     } catch (err) {
       console.error(err);
-      alert(err.response?.data?.message || "Errore bonus giornaliero");
+      if (err.response?.status === 400) {
+        alert(err.response.data.message); // Mostra "Bonus giornaliero già ricevuto oggi!"
+      } else {
+        alert("Errore bonus giornaliero");
+      }
     }
   };
 
   const addQrPoints = async () => {
     try {
       if (!user?._id) return;
-      const res = await axios.put(`/api/users?id=${user._id}`, { addPoints: 50 });
+      const res = await axios.put(`/api/users?email=${email}`, { addPoints: 50 });
       setUser(res.data.user);
       alert("🎉 Hai ricevuto 50 punti!");
     } catch (err) {
@@ -89,7 +93,8 @@ const FidelityCard = () => {
   const handleShare = async (type) => {
     try {
       if (!user?._id) return;
-      const res = await axios.put(`/api/users?id=${user._id}`, { addPoints: 5 });
+
+      const res = await axios.put(`/api/users?email=${email}`, { shareType: type });
       setUser(res.data.user);
 
       const shareText = `Ho appena guadagnato punti con la mia Fidelity Card!`;
@@ -121,7 +126,7 @@ const FidelityCard = () => {
     labels: Array.isArray(user.history) ? user.history.map(h => new Date(h.date).toLocaleDateString()) : [],
     datasets: [{
       label: "Punti accumulati",
-      data: Array.isArray(user.history) ? user.history.map(h => h.points) : [],
+      data: Array.isArray(user.history) ? user.history.map(h => Number(h.points.toFixed(2))) : [],
       borderColor: "#2196f3",
       backgroundColor: "rgba(33,150,243,0.2)",
       tension: 0.4,
@@ -151,19 +156,18 @@ const FidelityCard = () => {
         <h1 className="fidelity-main-title">🃏 La tua Fidelity Card</h1>
 
         <div className="progress-box">
-  <p className="missing-points" style={{ color: "#0d47a1" }}>
-    🎯 Ti mancano{" "}
-    <strong style={{ color: "#bb3108" }}>{pointsToNext}</strong> punti per arrivare al livello{" "}
-    <span style={{ color: "#0d47a1" }}>{nextLevel.name}</span>
-  </p>
-  <div className="progress-bar">
-    <div
-      className="progress-fill"
-      style={{ width: `${progress}%`, background: "linear-gradient(90deg, #7da9d4, #0d47a1)" }}
-    />
-  </div>
-</div>
-
+          <p className="missing-points" style={{ color: "#0d47a1" }}>
+            🎯 Ti mancano{" "}
+            <strong style={{ color: "#bb3108" }}>{pointsToNext.toFixed(2)}</strong> punti per arrivare al livello{" "}
+            <span style={{ color: "#0d47a1" }}>{nextLevel.name}</span>
+          </p>
+          <div className="progress-bar">
+            <div
+              className="progress-fill"
+              style={{ width: `${progress}%`, background: "linear-gradient(90deg, #7da9d4, #0d47a1)" }}
+            />
+          </div>
+        </div>
 
         <div className="quick-actions">
           <button onClick={dailyBonus}>🎁 Login giornaliero</button>
@@ -180,8 +184,14 @@ const FidelityCard = () => {
             <input type="date" value={birthDate} onChange={e => setBirthDate(e.target.value)} />
             <button onClick={saveBirthDate} className="qr-button">Salva</button>
           </div>
-          <div className="info-row"><span className="label">Punti totali:</span><span className="value">{user.points}</span></div>
-          <div className="info-row"><span className="label">Livello attuale:</span><span className="value">{currentLevel.name}</span></div>
+          <div className="info-row">
+            <span className="label">Punti totali:</span>
+            <span className="value">{user.points.toFixed(2)}</span>
+          </div>
+          <div className="info-row">
+            <span className="label">Livello attuale:</span>
+            <span className="value">{currentLevel.name}</span>
+          </div>
         </div>
 
         <div className="qr-section">

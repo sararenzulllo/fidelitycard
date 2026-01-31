@@ -23,7 +23,6 @@ const Recensioni = () => {
     const fetchOrders = async () => {
       try {
         const res = await axios.get(`${API_URL}/api/orders`, { params: { email } });
-
         const orders = Array.isArray(res.data) ? res.data : [];
 
         const productsSet = new Set();
@@ -68,16 +67,28 @@ const Recensioni = () => {
     if (!newReview.product) return alert("Seleziona un prodotto");
 
     try {
-      const formData = new FormData();
-      formData.append("product", newReview.product);
-      formData.append("rating", newReview.rating);
-      formData.append("comment", newReview.comment);
-      formData.append("userEmail", email);
-      if (newReview.photo) formData.append("photo", newReview.photo);
+      // Converti foto in base64 (opzionale)
+      let photoBase64 = null;
+      if (newReview.photo) {
+        photoBase64 = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(newReview.photo);
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = (err) => reject(err);
+        });
+      }
 
-      const res = await axios.post(`${API_URL}/api/reviews`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const res = await axios.post(
+        `${API_URL}/api/reviews`,
+        {
+          product: newReview.product,
+          rating: newReview.rating,
+          comment: newReview.comment,
+          userEmail: email,
+          photo: photoBase64,
+        },
+        { headers: { "Content-Type": "application/json" } }
+      );
 
       setReviews([...reviews, res.data]);
       setNewReview({ product: "", rating: 5, comment: "", photo: null });
@@ -98,13 +109,9 @@ const Recensioni = () => {
         </p>
       ) : (
         <form className="review-form" onSubmit={handleSubmit}>
-          <label>Prodotto:
-            <select
-              name="product"
-              value={newReview.product}
-              onChange={handleChange}
-              required
-            >
+          <label>
+            Prodotto:
+            <select name="product" value={newReview.product} onChange={handleChange} required>
               <option value="">Seleziona prodotto</option>
               {userProducts.map((p, i) => (
                 <option key={i} value={p}>{p}</option>
@@ -112,17 +119,15 @@ const Recensioni = () => {
             </select>
           </label>
 
-          <label>Valutazione:
-            <select
-              name="rating"
-              value={newReview.rating}
-              onChange={handleChange}
-            >
+          <label>
+            Valutazione:
+            <select name="rating" value={newReview.rating} onChange={handleChange}>
               {[5,4,3,2,1].map(st => <option key={st} value={st}>{st} ★</option>)}
             </select>
           </label>
 
-          <label>Commento:
+          <label>
+            Commento:
             <textarea
               name="comment"
               value={newReview.comment}
@@ -132,7 +137,8 @@ const Recensioni = () => {
             />
           </label>
 
-          <label>Foto (opzionale):
+          <label>
+            Foto (opzionale):
             <input type="file" name="photo" onChange={handleChange} accept="image/*" />
           </label>
 
@@ -146,7 +152,7 @@ const Recensioni = () => {
           <div key={idx} className="review-card">
             <strong>{r.product}</strong> - {r.rating} ★
             <p>{r.comment}</p>
-            {r.photo && <img src={`${API_URL}${r.photo}`} alt="recensione" />}
+            {r.photo && <img src={r.photo} alt="recensione" style={{ maxWidth: "200px" }} />}
           </div>
         ))}
       </div>
