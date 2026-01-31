@@ -10,20 +10,18 @@ const router = express.Router();
 // =========================
 router.get("/", async (req, res) => {
   try {
-    // Connessione al DB ad ogni richiesta
-    await connectDB();
+    await connectDB(); // Connessione sicura ad ogni richiesta
 
     const products = await Product.find();
     res.status(200).json(products);
   } catch (err) {
     console.error("Errore API GET /products:", err);
-    res.status(500).json({ message: "Errore server prodotti" });
+    res.status(500).json({ message: "Errore server prodotti", error: err.message });
   }
 });
 
 // =========================
 // POST /api/products
-// NOTA: su Vercel non salviamo file, solo immagini già presenti
 // =========================
 router.post("/", async (req, res) => {
   try {
@@ -31,25 +29,26 @@ router.post("/", async (req, res) => {
 
     const { name, price, points, quantity, description, image } = req.body;
 
+    // Controllo dei dati
     if (!name || !price || !points || !quantity || !description || !image) {
       return res.status(400).json({ message: "Dati mancanti" });
     }
 
-    // image deve essere il nome del file presente in public/images
+    // image deve essere il nome del file già presente in public/images
     const newProduct = new Product({
       name,
       price,
       points,
       quantity,
       description,
-      image, // es. "prodotto1.jpg"
+      image,
     });
 
     await newProduct.save();
     res.status(201).json(newProduct);
   } catch (err) {
     console.error("Errore API POST /products:", err);
-    res.status(500).json({ message: "Errore aggiunta prodotto" });
+    res.status(500).json({ message: "Errore aggiunta prodotto", error: err.message });
   }
 });
 
@@ -66,7 +65,7 @@ router.delete("/:id", async (req, res) => {
     res.status(200).json({ message: "Prodotto eliminato" });
   } catch (err) {
     console.error("Errore API DELETE /products/:id:", err);
-    res.status(500).json({ message: "Errore eliminazione prodotto" });
+    res.status(500).json({ message: "Errore eliminazione prodotto", error: err.message });
   }
 });
 
