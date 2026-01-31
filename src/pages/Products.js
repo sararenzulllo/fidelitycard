@@ -10,6 +10,9 @@ const Products = () => {
   const [message, setMessage] = useState("");
   const [quantities, setQuantities] = useState({});
 
+  // Determina se siamo in locale
+  const isLocal = !process.env.NODE_ENV || process.env.NODE_ENV === "development";
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -78,7 +81,13 @@ const Products = () => {
         {products.map((p, i) => (
           <div key={p._id} className={`product-row ${i % 2 === 0 ? "even" : "odd"}`}>
             <div className="product-image">
-              {p.image && <img src={`/images/${p.image}`} alt={p.name} width={150} />}
+              {p.image && (
+                <img
+                  src={isLocal ? `/images/${p.image}` : `/images/${p.image}`}
+                  alt={p.name}
+                  width={150}
+                />
+              )}
             </div>
             <div className="product-info">
               <h2>{p.name}</h2>
@@ -90,11 +99,13 @@ const Products = () => {
             </div>
             <div className="product-actions">
               <button onClick={() => deleteProduct(p._id)}>Elimina</button>
+
               <div className="quantity-controls">
                 <button onClick={() => updateQuantity(p._id, -1)}>−</button>
                 <span>{quantities[p._id] || 1}</span>
                 <button onClick={() => updateQuantity(p._id, 1)}>+</button>
               </div>
+
               <button className="add-to-cart-btn" onClick={() => addToCart(p)}>
                 🛒 Aggiungi al carrello
               </button>
