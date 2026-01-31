@@ -41,35 +41,39 @@ router.get("/", async (req, res) => {
 // =========================
 // POST /api/products
 // =========================
-router.post("/", isLocal ? upload.single("image") : async (req, res, next) => next(), async (req, res) => {
-  try {
-    const { name, price, points, quantity, description, image } = req.body;
+router.post(
+  "/", 
+  isLocal ? upload.single("image") : (req, res, next) => next(), 
+  async (req, res) => {
+    try {
+      const { name, price, points, quantity, description, image } = req.body;
 
-    let imageName;
+      let imageName;
 
-    if (isLocal) {
-      if (!req.file) return res.status(400).json({ message: "Immagine mancante" });
-      imageName = req.file.filename; // multer salva il file
-    } else {
-      if (!image) return res.status(400).json({ message: "Immagine mancante" });
-      imageName = image; // nome file già presente in /public/images su Vercel
+      if (isLocal) {
+        if (!req.file) return res.status(400).json({ message: "Immagine mancante" });
+        imageName = req.file.filename; // multer salva il file
+      } else {
+        if (!image) return res.status(400).json({ message: "Inserisci il nome immagine già presente in /public/images" });
+        imageName = image; // nome file già presente su Vercel
+      }
+
+      const newProduct = new Product({
+        name,
+        price,
+        points,
+        quantity,
+        description,
+        image: imageName,
+      });
+
+      await newProduct.save();
+      res.status(201).json(newProduct);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Errore aggiunta prodotto" });
     }
-
-    const newProduct = new Product({
-      name,
-      price,
-      points,
-      quantity,
-      description,
-      image: imageName,
-    });
-
-    await newProduct.save();
-    res.status(201).json(newProduct);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Errore aggiunta prodotto" });
   }
-});
+);
 
 export default router;

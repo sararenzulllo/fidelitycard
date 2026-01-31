@@ -10,8 +10,8 @@ const AddProduct = () => {
   const [points, setPoints] = useState("");
   const [quantity, setQuantity] = useState("");
   const [description, setDescription] = useState("");
-  const [imageFile, setImageFile] = useState(null);  // in locale
-  const [imageName, setImageName] = useState("");    // in produzione (Vercel)
+  const [imageFile, setImageFile] = useState(null);  // per locale
+  const [imageName, setImageName] = useState("");    // per produzione
   const [successMsg, setSuccessMsg] = useState("");
 
   const handleSubmit = async (e) => {
@@ -31,7 +31,6 @@ const AddProduct = () => {
         await axios.post("/api/products", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
-
       } else {
         if (!imageName) return alert("Inserisci il nome dell'immagine già presente in /public/images!");
         await axios.post("/api/products", {
@@ -40,7 +39,7 @@ const AddProduct = () => {
           points: Number(points),
           quantity: Number(quantity),
           description,
-          image: imageName,  // usa file già caricato nel deploy
+          image: imageName,
         });
       }
 
