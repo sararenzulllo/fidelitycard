@@ -12,7 +12,6 @@ const Products = () => {
 
   const isLocal = !process.env.NODE_ENV || process.env.NODE_ENV === "development";
 
-  // Funzione per caricare prodotti
   const fetchProducts = async () => {
     try {
       const res = await axios.get("/api/products");
@@ -46,7 +45,7 @@ const Products = () => {
       await axios.delete(`/api/products?id=${id}`);
       setMessage("✅ Prodotto eliminato!");
       setTimeout(() => setMessage(""), 3000);
-      fetchProducts(); // aggiorna lista prodotti
+      fetchProducts();
     } catch (err) {
       console.error("Errore eliminazione prodotto:", err);
       setMessage("❌ Errore eliminazione prodotto");
@@ -79,9 +78,7 @@ const Products = () => {
         {products.map((p, i) => (
           <div key={p._id} className={`product-row ${i % 2 === 0 ? "even" : "odd"}`}>
             <div className="product-image">
-              {p.image && (
-                <img src={`/images/${p.image}`} alt={p.name} width={150} />
-              )}
+              {p.image && <img src={`/images/${p.image}`} alt={p.name} />}
             </div>
             <div className="product-info">
               <h2>{p.name}</h2>
@@ -106,6 +103,15 @@ const Products = () => {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* BOTTONE NAVIGAZIONE FINALE */}
+      <div className="products-buttons-wrapper">
+        <div className="products-buttons-container">
+          <button onClick={() => navigate("/")}>🏠 Home</button>
+          <button onClick={() => navigate("/ordini")}>📦 Ordina Prodotti</button>
+          <button onClick={() => navigate("/orders-list")}>📝 Lista Ordini</button>
+        </div>
       </div>
     </div>
   );

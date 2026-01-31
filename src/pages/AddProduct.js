@@ -9,14 +9,15 @@ const AddProduct = ({ fetchProducts }) => {
   const [price, setPrice] = useState("");
   const [points, setPoints] = useState("");
   const [description, setDescription] = useState("");
-  const [imageFile, setImageFile] = useState(null); // solo locale
-  const [imageName, setImageName] = useState("");   // solo Vercel
+  const [imageFile, setImageFile] = useState(null);
+  const [imageName, setImageName] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault();        // previene refresh
+    e.stopPropagation();       // previene bubbling accidentale
     setSuccessMsg("");
     setErrorMsg("");
 
@@ -40,7 +41,6 @@ const AddProduct = ({ fetchProducts }) => {
         await axios.post("/api/products", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
-
       } else {
         await axios.post("/api/products", {
           name,
@@ -59,6 +59,7 @@ const AddProduct = ({ fetchProducts }) => {
       setImageFile(null);
       setImageName("");
       setSuccessMsg("✅ Prodotto aggiunto correttamente!");
+      setErrorMsg("");
 
       // aggiorna lista prodotti live
       if (fetchProducts) await fetchProducts();
@@ -66,6 +67,7 @@ const AddProduct = ({ fetchProducts }) => {
     } catch (err) {
       console.error("Errore aggiunta prodotto:", err.response?.data || err.message);
       setErrorMsg("❌ Errore aggiunta prodotto. Controlla i dati e riprova.");
+      setSuccessMsg("");
     } finally {
       setLoading(false);
     }
