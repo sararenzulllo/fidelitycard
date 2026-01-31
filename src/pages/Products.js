@@ -82,11 +82,7 @@ const Products = () => {
           <div key={p._id} className={`product-row ${i % 2 === 0 ? "even" : "odd"}`}>
             <div className="product-image">
               {p.image && (
-                <img
-                  src={isLocal ? `/images/${p.image}` : `/images/${p.image}`}
-                  alt={p.name}
-                  width={150}
-                />
+                <img src={`/images/${p.image}`} alt={p.name} width={150} />
               )}
             </div>
             <div className="product-info">

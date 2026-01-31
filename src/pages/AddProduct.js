@@ -10,8 +10,8 @@ const AddProduct = () => {
   const [points, setPoints] = useState("");
   const [quantity, setQuantity] = useState("");
   const [description, setDescription] = useState("");
-  const [imageFile, setImageFile] = useState(null);  // per locale
-  const [imageName, setImageName] = useState("");    // per produzione
+  const [imageFile, setImageFile] = useState(null); // solo locale
+  const [imageName, setImageName] = useState("");   // solo Vercel
   const [successMsg, setSuccessMsg] = useState("");
 
   const handleSubmit = async (e) => {
@@ -43,7 +43,7 @@ const AddProduct = () => {
         });
       }
 
-      // Reset form
+      // reset form
       setName("");
       setPrice("");
       setPoints("");

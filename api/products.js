@@ -42,8 +42,8 @@ router.get("/", async (req, res) => {
 // POST /api/products
 // =========================
 router.post(
-  "/", 
-  isLocal ? upload.single("image") : (req, res, next) => next(), 
+  "/",
+  isLocal ? upload.single("image") : async (req, res, next) => next(),
   async (req, res) => {
     try {
       const { name, price, points, quantity, description, image } = req.body;
@@ -51,11 +51,13 @@ router.post(
       let imageName;
 
       if (isLocal) {
+        // In locale: multer salva l'immagine
         if (!req.file) return res.status(400).json({ message: "Immagine mancante" });
-        imageName = req.file.filename; // multer salva il file
+        imageName = req.file.filename;
       } else {
-        if (!image) return res.status(400).json({ message: "Inserisci il nome immagine già presente in /public/images" });
-        imageName = image; // nome file già presente su Vercel
+        // Su Vercel: usa solo nome immagine già presente
+        if (!image) return res.status(400).json({ message: "Immagine mancante" });
+        imageName = image;
       }
 
       const newProduct = new Product({
