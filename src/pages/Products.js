@@ -80,8 +80,10 @@ const Products = () => {
         {products.map((p, i) => (
           <div key={p._id} className={`product-row ${i % 2 === 0 ? "even" : "odd"}`}>
             <div className="product-image">
-              {/* Usa la cartella public/uploads */}
-              {p.image && <img src={`/uploads/${p.image}`} alt={p.name} />}
+              <img
+                src={p.image ? `/uploads/${p.image}` : "/uploads/placeholder.png"}
+                alt={p.name}
+              />
             </div>
             <div className="product-info">
               <h2>{p.name}</h2>
