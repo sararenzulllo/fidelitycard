@@ -156,10 +156,10 @@ const FidelityCard = () => {
         <h1 className="fidelity-main-title">🃏 La tua Fidelity Card</h1>
 
         <div className="progress-box">
-          <p className="missing-points" style={{ color: "#0d47a1" }}>
+          <p className="missing-points" style={{ color: "#195e8c" , fontSize: "17px" }}>
             🎯 Ti mancano{" "}
             <strong style={{ color: "#bb3108" }}>{pointsToNext.toFixed(2)}</strong> punti per arrivare al livello{" "}
-            <span style={{ color: "#0d47a1" }}>{nextLevel.name}</span>
+            <span style={{ color: "#13a99a" }}>{nextLevel.name}</span>
           </p>
           <div className="progress-bar">
             <div

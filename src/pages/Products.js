@@ -10,8 +10,6 @@ const Products = () => {
   const [message, setMessage] = useState("");
   const [quantities, setQuantities] = useState({});
 
-  const isLocal = !process.env.NODE_ENV || process.env.NODE_ENV === "development";
-
   const fetchProducts = async () => {
     try {
       const res = await axios.get("/api/products");
@@ -20,17 +18,16 @@ const Products = () => {
       const initialQuantities = {};
       res.data.forEach(p => (initialQuantities[p._id] = 1));
       setQuantities(initialQuantities);
-
     } catch (err) {
-      console.error("Errore caricamento prodotti:", err);
-      setMessage("❌ Impossibile caricare i prodotti");
-      setTimeout(() => setMessage(""), 3000);
+      setMessage("❌ Errore caricamento prodotti");
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => { fetchProducts(); }, []);
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   const updateQuantity = (id, delta) => {
     setQuantities(prev => ({
@@ -39,79 +36,75 @@ const Products = () => {
     }));
   };
 
-  const deleteProduct = async (id) => {
-    if (!window.confirm("Sei sicuro di voler eliminare questo prodotto?")) return;
-    try {
-      await axios.delete(`/api/products?id=${id}`);
-      setMessage("✅ Prodotto eliminato!");
-      setTimeout(() => setMessage(""), 3000);
-      fetchProducts();
-    } catch (err) {
-      console.error("Errore eliminazione prodotto:", err);
-      setMessage("❌ Errore eliminazione prodotto");
-      setTimeout(() => setMessage(""), 3000);
-    }
-  };
-
   const addToCart = (product) => {
     const qty = quantities[product._id] || 1;
-    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    const newCartItem = { ...product, quantity: qty };
-    const newCart = [...storedCart, newCartItem];
-    localStorage.setItem("cart", JSON.stringify(newCart));
-    setMessage(`✅ "${product.name}" aggiunto al carrello (x${qty})!`);
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push({ ...product, quantity: qty });
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    setMessage(`✅ ${product.name} aggiunto al carrello`);
     setTimeout(() => setMessage(""), 3000);
   };
 
-  if (loading) return <p className="loading">⏳ Caricamento prodotti...</p>;
+  if (loading) return <p className="loading">⏳ Caricamento...</p>;
 
   return (
-    <div className="products-container">
-      <h1>📦 Catalogo Prodotti</h1>
-      <button className="add-btn" onClick={() => navigate("/aggiungi-prodotto")}>
-        ➕ Aggiungi prodotto
+    <div className="products-page">
+      <h1 className="products-title">🛒 Catalogo Prodotti</h1>
+
+      {/* BOTTONE FUORI DALLA CARD */}
+      <button
+        className="add-btn"
+        onClick={() => navigate("/aggiungi-prodotto")}
+      >
+        ➕ Aggiungi Prodotto
       </button>
 
       {message && <div className="page-message">{message}</div>}
 
-      <div className="products-table">
-        {products.map((p, i) => (
-          <div key={p._id} className={`product-row ${i % 2 === 0 ? "even" : "odd"}`}>
-            <div className="product-image">
-              {p.image && <img src={`/images/${p.image}`} alt={p.name} />}
-            </div>
-            <div className="product-info">
+      {/* CARD CENTRALE */}
+      <div className="products-card">
+        <div className="products-grid">
+          {products.map(p => (
+            <div key={p._id} className="product-item">
+              {p.image && (
+                <img
+                  src={`/images/${p.image}`}
+                  alt={p.name}
+                  className="product-img"
+                />
+              )}
+
               <h2>{p.name}</h2>
-              <p>{p.description}</p>
-            </div>
-            <div className="product-stats">
-              <p>💰 Prezzo: <span className="stat-value price">€{p.price}</span></p>
-              <p>⭐ Punti: <span className="stat-value points">{p.points}</span></p>
-            </div>
-            <div className="product-actions">
-              <button onClick={() => deleteProduct(p._id)}>Elimina</button>
+              <p className="desc">{p.description}</p>
+
+              <div className="stats">
+                <span>💰 €{p.price}</span>
+                <span>⭐ {p.points} punti</span>
+              </div>
 
               <div className="quantity-controls">
                 <button onClick={() => updateQuantity(p._id, -1)}>−</button>
-                <span>{quantities[p._id] || 1}</span>
+                <span>{quantities[p._id]}</span>
                 <button onClick={() => updateQuantity(p._id, 1)}>+</button>
               </div>
 
-              <button className="add-to-cart-btn" onClick={() => addToCart(p)}>
-                🛒 Aggiungi al carrello
+              <button
+                className="add-cart"
+                onClick={() => addToCart(p)}
+              >
+                🛒 Aggiungi
               </button>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
-      {/* BOTTONE NAVIGAZIONE FINALE */}
-      <div className="products-buttons-wrapper">
-        <div className="products-buttons-container">
-          <button onClick={() => navigate("/")}>🏠 Home</button>
-          <button onClick={() => navigate("/ordini")}>📦 Ordina Prodotti</button>
-          <button onClick={() => navigate("/orders-list")}>📝 Lista Ordini</button>
-        </div>
+      {/* BOTTONI FINALI */}
+      <div className="bottom-buttons">
+        <button onClick={() => navigate("/")}>🏠 Home</button>
+        <button onClick={() => navigate("/ordini")}>📦 Ordina</button>
+        <button onClick={() => navigate("/orders-list")}>📝 Ordini</button>
       </div>
     </div>
   );

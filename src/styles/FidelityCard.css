@@ -35,13 +35,6 @@
   margin-bottom: 25px;
 }
 
-.missing-points {
-  text-align: center;
-  color: #0d47a1; /* tutto blu */
-  font-weight: 600;
-  font-style: italic;
-}
-
 .missing-points strong,
 .missing-points span {
   color: inherit; /* eredita il blu */
