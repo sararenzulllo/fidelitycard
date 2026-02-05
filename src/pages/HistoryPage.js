@@ -70,8 +70,7 @@ const HistoryPage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {items.map((h, index) => (
-                    // **NESSUNA CLASSE PER CATEGORIA**, solo punti
+                  {items.map((h, index) => (         
                     <tr key={index}>
                       <td>{new Date(h.date).toLocaleDateString()}</td>
                       <td>{getDescription(h)}</td>

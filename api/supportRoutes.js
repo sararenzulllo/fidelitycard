@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import { connectDB } from "../db.js";
 
 
-// Schema e modello
 const SupportMessageSchema = new mongoose.Schema({
   name: String,
   email: String,
@@ -16,9 +15,7 @@ export default async function handler(req, res) {
   await connectDB();
 
   try {
-    // =========================
-    // POST /api/support
-    // =========================
+  
     if (req.method === "POST") {
       const { name, email, message } = req.body;
 
@@ -38,9 +35,6 @@ export default async function handler(req, res) {
       });
     }
 
-    // =========================
-    // GET /api/support?email=
-    // =========================
     if (req.method === "GET") {
       const { email } = req.query;
       if (!email) return res.status(400).json({ message: "Email mancante" });
@@ -49,9 +43,6 @@ export default async function handler(req, res) {
       return res.json(messages);
     }
 
-    // =========================
-    // Metodo non consentito
-    // =========================
     return res.status(405).json({ message: "Metodo non consentito" });
   } catch (err) {
     console.error(err);

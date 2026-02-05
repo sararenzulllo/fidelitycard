@@ -67,7 +67,6 @@ const Recensioni = () => {
     if (!newReview.product) return alert("Seleziona un prodotto");
 
     try {
-      // Converti foto in base64 (opzionale)
       let photoBase64 = null;
       if (newReview.photo) {
         photoBase64 = await new Promise((resolve, reject) => {

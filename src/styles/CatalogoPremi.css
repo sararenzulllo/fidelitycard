@@ -2,7 +2,7 @@
   min-height: 100vh;
   padding: 50px 20px;
   font-family: 'Poppins', sans-serif;
-  color: #885c0b; /* testo blu scuro coerente con la home */
+  color: #885c0b; 
   background: linear-gradient(125deg, hsl(72, 100%, 92%), #c0b823);
   display: flex;
   flex-direction: column;
@@ -12,18 +12,17 @@
 .catalogo-title {
   font-size: 32px;
   font-weight: bold;
-  color: #9a7d0b; /* titolo blu scuro per contrasto */
+  color: #9a7d0b; 
   margin-bottom: 10px;
 }
 
 .catalogo-punti {
   font-size: 20px;
   font-weight: 600;
-  color: #b47902; /* dorato medio più armonico con blu */
+  color: #b47902; 
   margin-bottom: 25px;
 }
 
-/* Form aggiungi premio */
 .add-prize-form {
   display: flex;
   gap: 15px;
@@ -49,8 +48,8 @@
 
 .add-prize-btn {
   padding: 12px 20px;
-  background-color: #e1bd2d; /* giallo pieno più chiaro e fresco */
-  color: hsl(38, 94%, 35%); /* blu scuro per contrasto */
+  background-color: #e1bd2d; 
+  color: hsl(38, 94%, 35%); 
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -60,10 +59,10 @@
 }
 
 .add-prize-btn:hover {
-  background-color: hsl(49, 90%, 47%); /* giallo più scuro al passaggio */
+  background-color: hsl(49, 90%, 47%); 
 }
 
-/* Griglia premi */
+
 .catalogo-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -73,7 +72,7 @@
 }
 
 .catalogo-card {
-  background-color: #fffec0; /* giallo chiaro */
+  background-color: #fffeeb; 
   padding: 40px;
   border-radius: 12px;
   text-align: center;
@@ -87,7 +86,7 @@
 }
 
 .catalogo-card h3 {
-  color: #b38f00; /* dorato medio */
+  color: #b38f00; 
   margin-bottom: 10px;
 }
 
@@ -140,7 +139,7 @@
   font-weight: 700;
   border-radius: 14px;
   background: linear-gradient(135deg, #e7c53c, #c49104);
-  color: #0f2c55; /* blu scuro per contrasto */
+  color: #0f2c55; 
   border: none;
   cursor: pointer;
   min-width: 220px;

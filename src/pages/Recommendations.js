@@ -37,7 +37,6 @@ const Recommendations = () => {
 
         let personalizedOffers = [];
 
-        // Offerte basate sugli ultimi acquisti
         if (user.orders && user.orders.length > 0) {
           const lastOrders = user.orders
             .slice(-3)
@@ -58,7 +57,6 @@ const Recommendations = () => {
           personalizedOffers = personalizedOffers.concat(purchaseOffers);
         }
 
-        // Nuovi prodotti
         const newProducts = allProducts.slice(-3);
         const newProductOffers = newProducts.map((p, i) => ({
           id: `new-${i}`,
@@ -69,7 +67,6 @@ const Recommendations = () => {
         }));
         personalizedOffers = personalizedOffers.concat(newProductOffers);
 
-        // Offerte stagionali
         const seasonalOffers = allProducts.slice(0, 3).map((p, i) => ({
           id: `sale-${i}`,
           title: `🔥 Saldi stagionali: -15% su ${p.name}`,
@@ -104,7 +101,6 @@ const Recommendations = () => {
   if (!email) return <p>❌ Devi fare il login</p>;
   if (!user) return <p>⏳ Caricamento dati utente...</p>;
 
-  // Funzione per aggiungere al carrello con popup
   const addToCartOffer = (product, discountedPrice) => {
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
     const newCartItem = { ...product, price: Number(discountedPrice).toFixed(2), quantity: 1 };
@@ -117,7 +113,6 @@ const Recommendations = () => {
 
   return (
     <div className="recommendations-container">
-      {/* POPUP DI CONFERMA */}
       {confirmationMessage && (
         <div className="confirmation-popup">
           ✅ {confirmationMessage}

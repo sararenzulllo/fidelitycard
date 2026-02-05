@@ -2,22 +2,22 @@
   min-height: 100vh;
   padding: 40px 20px;
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(137deg, #d8fffc 0%, #05558e 100%); /* blu chiaro soft */
-  color: #054b5b; /* testo scuro */
+  background: linear-gradient(137deg, #d8fffc 0%, #05558e 100%); 
+  color: #054b5b; 
 }
 
 .recommendations-container h1 {
   text-align: center;
   font-size: 36px;
   font-family: 'Pacifico', cursive;
-  color: #01447b; /* blu medio */
+  color: #01447b;
   margin-bottom: 30px;
   text-shadow: 1px 1px 4px rgba(0,0,0,0.05);
 }
 
 .recommendations-container h2 {
   font-size: 28px;
-  color: #000367; /* sottotitoli azzurro */
+  color: #000367; 
   margin: 25px 0 15px;
 }
 
@@ -30,8 +30,8 @@
 }
 
 .alert-card {
-  background-color: #a7e0eb; /* azzurro chiaro */
-  color: #891207; /* testo scuro */
+  background-color: #a7e0eb; 
+  color: #891207; 
   padding: 15px 20px;
   border-radius: 12px;
   font-weight: 600;
@@ -46,7 +46,7 @@
 }
 
 .offer-card, .news-card {
-  background-color: #ffffff; /* sfondo bianco neutro */
+  background-color: #ffffff; 
   border-radius: 16px;
   padding: 20px;
   min-width: 250px;
@@ -62,14 +62,14 @@
 
 .offer-card h3, .news-card h3 {
   font-size: 20px;
-  color: #016a7b; /* blu medio */
+  color: #016a7b; 
   margin-bottom: 10px;
 }
 
 .offer-card p, .news-card p {
   margin: 5px 0;
   font-size: 16px;
-  color: #054b5b; /* testo principale scuro */
+  color: #054b5b; 
 }
 
 .offer-card button {
@@ -77,7 +77,7 @@
   padding: 10px 15px;
   border: none;
   border-radius: 12px;
-  background-color: #0383a3; /* bottone blu acqua */
+  background-color: #0383a3; 
   color: #fff;
   font-weight: 600;
   cursor: pointer;
@@ -85,7 +85,7 @@
 }
 
 .offer-card button:hover {
-  background-color: #01288c; /* hover più scuro */
+  background-color: #01288c; 
   transform: scale(1.05);
 }
 
@@ -99,7 +99,7 @@
     position: fixed;
     top: 20px;
     right: 20px;
-    background: #028a99; /* popup blu acqua */
+    background: #028a99; 
     color: white;
     padding: 12px 20px;
     border-radius: 10px;

@@ -6,9 +6,6 @@ export default async function handler(req, res) {
   await connectDB();
 
   try {
-    // =========================
-    // GET /api/prizes
-    // =========================
     if (req.method === "GET") {
       const now = new Date();
 
@@ -19,9 +16,6 @@ export default async function handler(req, res) {
       return res.json(prizes);
     }
 
-    // =========================
-    // POST /api/prizes
-    // =========================
     if (req.method === "POST") {
       const {
         name,
@@ -52,9 +46,6 @@ export default async function handler(req, res) {
       return res.status(201).json(prize);
     }
 
-    // =========================
-    // DELETE /api/prizes?id=
-    // =========================
     if (req.method === "DELETE") {
       const { id } = req.query;
 
@@ -71,9 +62,6 @@ export default async function handler(req, res) {
       return res.status(200).json({ message: "Premio eliminato" });
     }
 
-    // =========================
-    // Metodo non supportato
-    // =========================
     return res.status(405).json({ message: "Metodo non consentito" });
   } catch (err) {
     console.error(err);

@@ -14,9 +14,6 @@ const Orders = () => {
   const email = localStorage.getItem("userEmail")?.toLowerCase();
   const API_URL = process.env.REACT_APP_API_URL || "";
 
-  // =========================
-  // FETCH UTENTE + CARRELLO
-  // =========================
   useEffect(() => {
     const fetchUser = async () => {
       if (!email) { setLoading(false); return; }
@@ -34,18 +31,13 @@ const Orders = () => {
     fetchUser();
   }, [email, API_URL]);
 
-  // =========================
-  // RIMUOVI DAL CARRELLO
-  // =========================
   const removeFromCart = (index) => {
     const newCart = cart.filter((_, i) => i !== index);
     setCart(newCart);
     localStorage.setItem("cart", JSON.stringify(newCart));
   };
 
-  // =========================
-  // APPLICA PREMIO
-  // =========================
+
   const applyReward = (reward) => {
     if (appliedReward?.name === reward.name) {
       setAppliedReward(null);
@@ -65,23 +57,16 @@ const Orders = () => {
     setTimeout(() => setMessage(""), 3000);
   };
 
-  // =========================
-  // CALCOLI TOTALI
-  // =========================
   const totalPoints = cart.reduce((acc, p) => acc + Number(p.points || 0), 0);
   const totalPrice = cart.reduce((acc, p) => acc + Number(p.price || 0), 0);
   const finalPrice = appliedReward?.type === "discount"
     ? totalPrice * (1 - appliedReward.value / 100)
     : totalPrice;
 
-  // =========================
-  // CONFERMA ORDINE
-  // =========================
   const confirmOrder = async () => {
     if (!user || !cart.length) return;
 
     try {
-      // 1️⃣ Aggiorna l’utente: punti guadagnati + premio usato
       const resUser = await axios.put(`${API_URL}/api/users?email=${email}`, {
         order: {
           products: cart,
@@ -92,7 +77,6 @@ const Orders = () => {
 
       setUser(resUser.data.user);
 
-      // 2️⃣ Salva ordine
       await axios.post(`${API_URL}/api/orders`, {
         utente: email,
         products: cart,
@@ -100,7 +84,7 @@ const Orders = () => {
         pointsEarned: totalPoints
       });
 
-      // 3️⃣ Pulisci carrello e premio applicato
+
       setCart([]);
       setAppliedReward(null);
       localStorage.removeItem("cart");
@@ -112,9 +96,6 @@ const Orders = () => {
     }
   };
 
-  // =========================
-  // RENDER
-  // =========================
   if (loading) return <p className="loading">⏳ Caricamento...</p>;
   if (!email) return <p className="error">❌ Devi fare il login</p>;
   if (!user) return <p className="error">❌ Utente non trovato</p>;

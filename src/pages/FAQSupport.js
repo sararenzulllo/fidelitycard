@@ -52,12 +52,11 @@ const FAQSupport = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Cambiato l'endpoint da localhost a /api/support
+ 
       await axios.post("/api/support", formData);
 
       setFormData({ name: "", email: "", message: "" });
 
-      // Mostra popup conferma
       setConfirmationMessage("Messaggio inviato! Ti risponderemo al più presto.");
       setTimeout(() => setConfirmationMessage(""), 2500);
 
@@ -73,8 +72,6 @@ const FAQSupport = () => {
 
   return (
     <div className="faq-container">
-
-      {/* POPUP DI CONFERMA */}
       {confirmationMessage && (
         <div className="faq-popup">
           {confirmationMessage}

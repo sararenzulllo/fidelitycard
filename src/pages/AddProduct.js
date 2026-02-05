@@ -16,12 +16,12 @@ const AddProduct = ({ fetchProducts }) => {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();        // previene refresh
-    e.stopPropagation();       // previene bubbling accidentale
+    e.preventDefault();       
+    e.stopPropagation();       
     setSuccessMsg("");
     setErrorMsg("");
 
-    // controllo campi
+  
     if (!name || !price || !points || !description || (isLocal ? !imageFile : !imageName)) {
       setErrorMsg("❌ Compila tutti i campi!");
       return;
@@ -51,7 +51,7 @@ const AddProduct = ({ fetchProducts }) => {
         });
       }
 
-      // reset campi
+      
       setName("");
       setPrice("");
       setPoints("");
@@ -61,7 +61,7 @@ const AddProduct = ({ fetchProducts }) => {
       setSuccessMsg("✅ Prodotto aggiunto correttamente!");
       setErrorMsg("");
 
-      // aggiorna lista prodotti live
+     
       if (fetchProducts) await fetchProducts();
 
     } catch (err) {

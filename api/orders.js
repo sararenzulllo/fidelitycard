@@ -1,4 +1,3 @@
-// backend/api/orders.js (compatibile Express e Vercel)
 import Order from "../models/Order.js";
 import { connectDB } from "../db.js";
 
@@ -7,7 +6,7 @@ export default async function handler(req, res) {
 
   try {
     if (req.method === "POST") {
-  const { utente, products, total, pointsEarned } = req.body; // <-- leggere pointsEarned
+  const { utente, products, total, pointsEarned } = req.body; 
   if (!utente || !products || products.length === 0 || !total) {
     return res.status(400).json({ message: "Dati mancanti" });
   }
@@ -16,7 +15,7 @@ export default async function handler(req, res) {
     utente: utente.toLowerCase(),
     products,
     total,
-    pointsEarned, // <-- usa pointsEarned per corrispondere al modello
+    pointsEarned, 
   });
 
   const savedOrder = await newOrder.save();

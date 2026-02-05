@@ -80,24 +80,23 @@ tbody td {
   transition: background 0.3s, transform 0.2s;
 }
 
-/* Righe alternate (zebra) */
+
 tbody tr:nth-child(odd) td {
-  background-color: #fde4ff !important; /* azzurro chiaro */
+  background-color: #fde4ff !important; 
 }
 
 tbody tr:nth-child(even) td {
-  background-color: #defffb !important; /* bianco */
+  background-color: #defffb !important; 
 }
 
-/* Hover righe */
+
 tbody tr:hover td {
   transform: scale(1.01);
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-/* Punti positivo/negativo */
-.points.positive { color: #0d47a1; font-weight: 600; } /* blu */
-.points.negative { color: #d32f2f; font-weight: 600; } /* rosso */
+.points.positive { color: #0d47a1; font-weight: 600; } 
+.points.negative { color: #d32f2f; font-weight: 600; } 
 
 @media (max-width: 768px) {
   .month-block { padding: 15px; }

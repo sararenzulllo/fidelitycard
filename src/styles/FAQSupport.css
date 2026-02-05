@@ -2,13 +2,13 @@
   min-height: 100vh;
   padding: 50px 20px;
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(147deg, #d8fffc 0%, #05558e 100%); /* blu chiaro soft */
-  color: #0f2c55; /* blu scuro per testi principali */
+  background: linear-gradient(147deg, #d8fffc 0%, #05558e 100%); 
+  color: #0f2c55; 
 }
 
 .faq-container h2, .faq-container h3 {
   text-align: center;
-  color: #0f2c55; /* titolo blu scuro */
+  color: #0f2c55; 
   margin-bottom: 25px;
   font-weight: 700;
 }
@@ -18,7 +18,7 @@
 }
 
 .faq-item {
-  background-color: #d9f1ff; /* giallo pastello soft */
+  background-color: #d9f1ff; 
   border-radius: 15px;
   margin-bottom: 15px;
   padding: 15px 20px;
@@ -56,7 +56,7 @@
   margin-top: 10px;
   font-size: 1rem;
   line-height: 1.5;
-  color: #084466; /* blu scuro meno intenso per testo risposta */
+  color: #084466; 
 }
 
 .faq-form {
@@ -71,7 +71,7 @@
 .faq-form textarea {
   padding: 12px 15px;
   border-radius: 12px;
-  border: 2px solid #0f2c55; /* bordo blu scuro */
+  border: 2px solid #0f2c55; 
   font-size: 1rem;
   outline: none;
   transition: border-color 0.3s, background-color 0.3s;
@@ -87,7 +87,7 @@
   padding: 12px 20px;
   border-radius: 12px;
   border: none;
-  background-color: #00204e; /* blu scuro */
+  background-color: #00204e;
   color: #fff;
   font-weight: 600;
   font-size: 1.1rem;
@@ -104,8 +104,8 @@
   text-align: center;
   font-size: 1.3rem;
   padding: 20px;
-  background-color: #a0e0ff; /* blu chiaro soft */
-  color: #0f2c55; /* blu scuro */
+  background-color: #a0e0ff; 
+  color: #0f2c55; 
   border-radius: 15px;
   max-width: 500px;
   margin: 40px auto;
@@ -117,7 +117,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #0f2c55; /* blu scuro */
+  background: #0f2c55;
   color: white;
   padding: 20px 30px;
   border-radius: 14px;

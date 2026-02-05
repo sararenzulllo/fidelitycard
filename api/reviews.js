@@ -1,4 +1,3 @@
-// backend/api/reviews.js
 import Review from "../models/Review.js";
 import { connectDB } from "../db.js";
 
@@ -8,9 +7,6 @@ export default async function handler(req, res) {
     await connectDB();
     console.log("✅ DB connesso correttamente");
 
-    // =========================
-    // GET /api/reviews?userEmail=
-    // =========================
     if (req.method === "GET") {
       const { userEmail } = req.query;
       if (!userEmail) return res.status(400).json({ message: "Email mancante" });
@@ -20,10 +16,7 @@ export default async function handler(req, res) {
 
       return res.status(200).json(reviews);
     }
-
-    // =========================
-    // POST /api/reviews
-    // =========================
+    
     if (req.method === "POST") {
       console.log("📩 Body ricevuto:", req.body);
 
@@ -47,8 +40,7 @@ export default async function handler(req, res) {
 
       return res.status(201).json(saved);
     }
-
-    // Metodo non consentito
+    
     return res.status(405).json({ message: "Metodo non consentito" });
   } catch (err) {
     console.error("❌ ERRORE SERVER recensioni:", err);

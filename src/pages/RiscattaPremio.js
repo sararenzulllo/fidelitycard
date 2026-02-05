@@ -15,12 +15,10 @@ const RiscattaPremio = () => {
   useEffect(() => {
     if (!email) return;
 
-    // Fetch dati utente
     axios.get(`${API_URL}/api/users?email=${email}`)
       .then(res => setUser(res.data))
       .catch(err => console.error(err));
 
-    // Fetch premi disponibili
     axios.get(`${API_URL}/api/prizes`)
       .then(res => setPremiDisponibili(res.data))
       .catch(err => console.error("Errore fetch premi:", err));
@@ -98,8 +96,6 @@ const RiscattaPremio = () => {
               return (
                 <div className="premio-card" key={i}>
                   <h4>{premio.name}</h4>
-                  {premio.consigliato && <span className="tag consigliato">⭐ Consigliato</span>}
-                  {premio.best && <span className="tag best">🔥 Best Value</span>}
                   <p className="validity">
                     Valido fino a: {new Date(premio.validUntil).toLocaleDateString()}
                   </p>

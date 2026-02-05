@@ -71,7 +71,7 @@ const FidelityCard = () => {
     } catch (err) {
       console.error(err);
       if (err.response?.status === 400) {
-        alert(err.response.data.message); // Mostra "Bonus giornaliero già ricevuto oggi!"
+        alert(err.response.data.message); 
       } else {
         alert("Errore bonus giornaliero");
       }

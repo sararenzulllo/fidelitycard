@@ -31,7 +31,7 @@ const OrdersList = () => {
 
     fetchOrders();
 
-    const interval = setInterval(fetchOrders, 5000); // auto refresh ordini ogni 5s
+    const interval = setInterval(fetchOrders, 5000);
     return () => clearInterval(interval);
   }, [email, API_URL]);
 

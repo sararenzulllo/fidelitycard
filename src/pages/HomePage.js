@@ -21,7 +21,6 @@ const HomePage = () => {
 
   return (
     <div className="homepage-container">
-      {/* Sidebar */}
       <aside className="sidebar">
         <h2 className="sidebar-title">Menu</h2>
 
@@ -54,7 +53,6 @@ const HomePage = () => {
         <button className="btn-logout" onClick={handleLogout}>🔒 Logout</button>
       </aside>
 
-      {/* Descrizione centrale */}
       <main className="main-content">
         <div className="fidelity-description">
           <h1 className="fidelity-title">🏠 FidelityCard360</h1>

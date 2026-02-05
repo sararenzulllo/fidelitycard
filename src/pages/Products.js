@@ -52,7 +52,6 @@ const Products = () => {
     <div className="products-page">
       <h1 className="products-title">🛒 Catalogo Prodotti</h1>
 
-      {/* BOTTONE FUORI DALLA CARD */}
       <button
         className="add-btn"
         onClick={() => navigate("/aggiungi-prodotto")}
@@ -62,7 +61,6 @@ const Products = () => {
 
       {message && <div className="page-message">{message}</div>}
 
-      {/* CARD CENTRALE */}
       <div className="products-card">
         <div className="products-grid">
           {products.map(p => (
@@ -100,7 +98,6 @@ const Products = () => {
         </div>
       </div>
 
-      {/* BOTTONI FINALI */}
       <div className="bottom-buttons">
         <button onClick={() => navigate("/")}>🏠 Home</button>
         <button onClick={() => navigate("/ordini")}>📦 Ordina</button>

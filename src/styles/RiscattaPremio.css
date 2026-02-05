@@ -1,69 +1,75 @@
 .riscatta-page {
   min-height: 100vh;
-  padding: 5vh 5vw; 
-  background: linear-gradient(125deg, hsl(72, 100%, 92%), #c0b823);
+  padding: 50px 20px;
   font-family: 'Poppins', sans-serif;
-  color: #b67b04; /* marrone scuro testo */
+  color: #885c0b;
+  background: linear-gradient(125deg, hsl(72, 100%, 92%), #c0b823);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .page-title {
   text-align: center;
-  font-size: clamp(28px, 3vw, 42px); 
-  color: #b78f00; /* arancio scuro */
-  margin-bottom: 5vh;
-  font-weight: 600;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  font-size: 32px; 
+  font-weight: bold;
+  color: #9a7d0b;
+  margin-bottom: 25px;
 }
 
 .progress-box {
-  max-width: 70%;
-  margin: 0 auto 5vh auto;
+  max-width: 700px;
+  width: 100%;
   text-align: center;
   color: #5a4000;
+  margin-bottom: 30px;
 }
+.premi-disponibili-title {
+  font-size: 30px;     
+  font-weight: bold;     
+  color: #9a7d0b;      
+  margin-bottom: 25px; 
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
 
 .missing-points {
-  font-size: clamp(16px, 2vw, 20px);
-  font-weight: 850;
-  color: #b77700; /* arancio scuro */
-  margin-bottom: 0.8vh;
+  font-size: 20px; 
+  font-weight: 600;
+  color: #b47902;
+  margin-bottom: 15px;
 }
 
-.missing-points .highlight {
-  color: #d04606; /* giallo acceso per i numeri */
-  font-weight: 700;
-}
 .progress-bar {
-  height: clamp(16px, 2vh, 24px); 
-  background: #fff3b0; /* giallo chiaro */
+  height: 20px; 
+  background: #fff3b0;
   border-radius: 1rem;
   overflow: hidden;
-  margin-top: 1vh;
   box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
 }
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #ffe44d, #d9b31c); /* giallo → arancione */
+  background: linear-gradient(90deg, #ffe44d, #d9b31c);
   border-radius: 1rem;
   transition: width 0.5s ease-in-out;
 }
 
 .success-message {
   text-align: center;
-  color: #8a4c00; /* arancio scuro */
+  color: #8a4c00;
   font-weight: bold;
-  font-size: clamp(16px, 2vw, 20px);
-  margin-bottom: 3vh;
-  padding: 1vh 2vw;
-  background: #fff1c2; /* giallo chiaro */
-  border-radius: 1rem;
+  font-size: 20px;
+  padding: 10px 20px;
+  background: #fff1c2;
+  border-radius: 12px;
+  margin-bottom: 25px;
   box-shadow: 0 3px 8px rgba(0,0,0,0.1);
 }
 
 .riscattati {
   max-width: 95%;
-  margin: 0 auto 4vh auto;
+  margin-bottom: 25px;
   text-align: center;
 }
 
@@ -71,68 +77,79 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1vw;
+  gap: 10px;
 }
 
 .badge-ottenuto {
-  background: #ffdc73; /* giallo arancio chiaro */
-  color: #b75e00; /* arancio scuro testo */
-  padding: clamp(6px, 1vw, 12px) clamp(12px, 2vw, 16px);
+  background: #ffdc73;
+  color: #b75e00;
+  padding: 8px 16px;
   border-radius: 1.5rem;
-  font-weight: 800;
-  font-size: clamp(14px, 1.5vw, 16px);
+  font-weight: 700;
+  font-size: 16px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .premi-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(clamp(260px, 30vw, 300px), 1fr));
-  gap: 2vw;
-  margin-top: 2vh;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 30px;
 }
 
 .premio-card {
-  background: #fff6d6; /* giallo chiaro */
-  padding: clamp(30px, 4vw, 50px);
-  border-radius: 18px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  background: #fffeeb;
+  padding: 40px;
+  border-radius: 12px;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  color: #975003; /* arancio scuro testo */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.premio-card h3 {
-  color: #9c6204; /* arancio */
-  font-size: clamp(20px, 2vw, 16px);
-  margin-bottom: 1.5vh;
+.premio-card h4 {
+  font-size: 24px; 
+  font-weight: bold;
+  color: #b38f00;
+  margin-bottom: 15px;
 }
 
-.premio-card p {
-  color: #b75e00; /* arancio scuro testo */
-  font-size: clamp(16px, 2vw, 18px);
-  margin-bottom: 1vh;
+.premio-card p.validity {
+  font-size: 20px;
+  color: #aa8319;
+  margin-bottom: 15px;
 }
 
-.premio-card:hover {
-  transform: translateY(-6px) scale(1.04);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+.premio-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.premio-punti {
+  font-size: 18px;
+  font-weight: 600;
+  color: #b47902;
 }
 
 .redeem-btn {
-  padding: clamp(10px, 1.5vh, 14px) clamp(18px, 2vw, 24px);
-  border-radius: 1rem;
+  padding: 12px 24px;
+  border-radius: 12px;
   border: none;
   cursor: pointer;
   font-weight: bold;
-  font-size: clamp(14px, 2vw, 16px);
-  background-color: #e5b31f; /* arancio */
-  color: #fff;
+  font-size: 16px;
+  background-color: #e1bd2d;
+  color: #0f2c55;
   transition: all 0.3s ease;
   box-shadow: 0 5px 14px rgba(0,0,0,0.15);
 }
 
 .redeem-btn:hover:not(:disabled) {
-  background-color: #ff8000;
+  background-color: #f2ce2f;
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0,0,0,0.2);
 }
@@ -143,59 +160,53 @@
   cursor: not-allowed;
 }
 
+.punti-totali-container {
+  margin-bottom: 25px;
+}
+
+.punti-totali {
+  font-size: 30px;
+  font-weight: 600;
+  color: #b47902;
+  text-align: center;
+}
+
 .riscatta-buttons-container {
   display: flex;
   justify-content: center;
-  gap: 2vw;
+  gap: 20px;
   flex-wrap: wrap;
-  margin-top: 5vh;
+  margin-top: 30px;
 }
 
 .green-btn {
-  padding: clamp(12px, 2vh, 16px) clamp(20px, 4vw, 32px);
-  font-size: clamp(16px, 3vw, 20px);
+  padding: 16px 28px;
+  font-size: 18px;
   font-weight: 700;
-  border-radius: 1rem;
+  border-radius: 14px;
   background: linear-gradient(135deg, #e7c53c, #c49104);
-  color: #fff;
+  color: #0f2c55;
   border: none;
   cursor: pointer;
-  min-width: 20%;
-  text-align: center;
-  transition: all 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  min-width: 220px;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
 .green-btn:hover {
-  background: linear-gradient(135deg, #efd64c, #a47601); 
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  background: linear-gradient(135deg, #efd64c, #a47601);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.25);
 }
 
 .green-btn:active {
   transform: translateY(2px) scale(0.98);
 }
 
-.premi-disponibili-title {
-  font-size: clamp(8px, 2vw, 28px); 
-  font-weight: 700;
-  color: #b8770f; /* arancio */
-  margin-bottom: 1.5vh;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-}
-
-.punti-totali {
-  text-align: center;
-  font-size: clamp(8px, 3vw, 28px); 
-  font-weight: 600;
-  margin-bottom: 2vh;
-  color: #b75e00; /* arancio scuro */
-}
-
-
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   .green-btn, .redeem-btn {
     width: 90%;
-    font-size: clamp(14px, 4vw, 18px);
+    font-size: 16px;
+    min-width: unset;
   }
 }

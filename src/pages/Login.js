@@ -10,21 +10,19 @@ const Login = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // Punto finale API
   const API_URL = process.env.REACT_APP_API_URL || "/api";
 
   const handleLogin = async (e) => {
   e.preventDefault();
 
   try {
-    const res = await axios.post(`${API_URL}/login`, { // ❌ togli .js
+    const res = await axios.post(`${API_URL}/login`, { 
       email: email.toLowerCase(),
       password,
     });
 
     const { token, user } = res.data;
 
-    // 🔹 Salva token e email in localStorage
     localStorage.setItem("authToken", token);
     localStorage.setItem("userEmail", user.email);
 

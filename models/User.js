@@ -24,7 +24,6 @@ const userSchema = new mongoose.Schema({
   lastShareBonus: { type: Date, default: null }
 }, { timestamps: true });
 
-// Middleware per cancellare ordini e recensioni dell'utente
 userSchema.pre("remove", async function(next) {
   try {
     await Order.deleteMany({ utente: this.email });

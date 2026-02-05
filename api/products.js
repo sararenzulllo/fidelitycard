@@ -5,10 +5,8 @@ import path from "path";
 
 await connectDB();
 
-// Determina se siamo in locale
 const isLocal = process.env.NODE_ENV !== "production";
 
-// Configurazione multer solo per locale
 let upload;
 if (isLocal) {
   const storage = multer.diskStorage({
@@ -25,19 +23,12 @@ if (isLocal) {
 
 export default async function handler(req, res) {
   try {
-    // =========================
-    // GET /api/products
-    // =========================
     if (req.method === "GET") {
       const products = await Product.find();
       return res.status(200).json(products);
     }
 
-    // =========================
-    // POST /api/products
-    // =========================
     if (req.method === "POST") {
-      // Se siamo in locale, multer gestisce l'upload
       if (isLocal) {
         return upload.single("image")(req, res, async (err) => {
           if (err) return res.status(500).json({ message: err.message });
@@ -57,7 +48,6 @@ export default async function handler(req, res) {
           return res.status(201).json(newProduct);
         });
       } else {
-        // Su Vercel, solo nome immagine già presente
         const { name, price, points, description, image } = req.body;
         if (!name || !price || !points || !description || !image)
           return res.status(400).json({ message: "Dati mancanti" });
@@ -68,9 +58,6 @@ export default async function handler(req, res) {
       }
     }
 
-    // =========================
-    // DELETE /api/products?id=...
-    // =========================
     if (req.method === "DELETE") {
       const { id } = req.query;
       if (!id) return res.status(400).json({ message: "ID mancante" });
@@ -81,7 +68,6 @@ export default async function handler(req, res) {
       return res.status(200).json({ message: "Prodotto eliminato" });
     }
 
-    // Metodo non supportato
     res.status(405).json({ message: "Metodo non consentito" });
 
   } catch (err) {

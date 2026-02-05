@@ -7,9 +7,6 @@ export default async function handler(req, res) {
   await connectDB();
 
   try {
-    // =========================
-    // GET /api/suggested?email=
-    // =========================
     if (req.method === "GET") {
       const { email } = req.query;
 
