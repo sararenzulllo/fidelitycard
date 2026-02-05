@@ -66,7 +66,7 @@
 
 .fidelity-image {
   width: 100%;
-  max-width: 500px;
+  max-width: 700px;
   height: auto;
   border-radius: 12px;
   box-shadow: 0 6px 15px rgba(0,0,0,0.35);
@@ -91,6 +91,8 @@
   border-radius: 12px;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+  flex: 0 1 auto; 
+  min-width: 150px; 
 }
 
 .btn-login {
@@ -102,6 +104,7 @@
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
+
 
 .btn-register {
   background: linear-gradient(135deg, #ffffff 0%, #dbe9ff 100%);
@@ -121,7 +124,7 @@
   }
 
   .fidelity-image {
-    max-width: 80%;
+    max-width: 90%;
   }
 }
 
@@ -135,8 +138,9 @@
   }
 
   .welcome-buttons button {
-    width: 90%;
-    font-size: 16px;
-    padding: 12px 0;
+  width: 90%; 
+  max-width: 280px; 
+  font-size: 15px;
+  padding: 10px 0; 
   }
 }
